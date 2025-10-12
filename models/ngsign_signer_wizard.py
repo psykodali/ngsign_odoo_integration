@@ -11,36 +11,55 @@ class NgsignSignerWizard(models.TransientModel):
     partner_id = fields.Many2one('res.partner', string='Company', readonly=True)
     signer_id = fields.Many2one(
         'res.partner', 
-        string='Signer', 
+        string='Contact', 
         required=True,
         domain="[('id', 'child_of', partner_id), ('type', '=', 'contact'), ('id', '!=', partner_id)]"
     )
-    available_signers = fields.Many2many(
-        'res.partner',
-        compute='_compute_available_signers',
-        string='Available Signers'
+    signer_email = fields.Char(string='Email', required=True)
+    signer_phone = fields.Char(string='Phone')
+    update_contact = fields.Boolean(
+        string='Update contact information',
+        default=False,
+        help="If checked, the contact's email and phone will be updated with the values entered above"
     )
 
-    @api.depends('partner_id')
-    def _compute_available_signers(self):
-        for wizard in self:
-            if wizard.partner_id:
-                # Get all contacts of the company
-                signers = self.env['res.partner'].search([
-                    ('id', 'child_of', wizard.partner_id.id),
-                    ('type', '=', 'contact'),
-                    ('id', '!=', wizard.partner_id.id)
-                ])
-                wizard.available_signers = signers
-            else:
-                wizard.available_signers = False
+    @api.onchange('signer_id')
+    def _onchange_signer_id(self):
+        """Auto-fill email and phone when contact is selected."""
+        if self.signer_id:
+            self.signer_email = self.signer_id.email or ''
+            self.signer_phone = self.signer_id.phone or ''
+            # Auto-check update if email or phone is missing
+            self.update_contact = not self.signer_id.email or not self.signer_id.phone
+        else:
+            self.signer_email = ''
+            self.signer_phone = ''
+            self.update_contact = False
 
     def action_confirm_signer(self):
         """Confirm signer selection and proceed with NGSIGN sending."""
         self.ensure_one()
         
         if not self.signer_id:
-            raise UserError(_("Please select a signer."))
+            raise UserError(_("Please select a contact."))
         
-        # Call the send method with the selected signer
-        return self.sale_order_id.action_send_with_ngsign(signer_partner=self.signer_id)
+        if not self.signer_email:
+            raise UserError(_("Email is required to send for signature."))
+        
+        # Update contact if checkbox is checked
+        if self.update_contact:
+            self.signer_id.write({
+                'email': self.signer_email,
+                'phone': self.signer_phone,
+            })
+        
+        # Create a temporary partner-like dict with the signer info
+        signer_info = {
+            'id': self.signer_id.id,
+            'name': self.signer_id.name,
+            'email': self.signer_email,
+            'phone': self.signer_phone or '',
+        }
+        
+        # Call the send method with the signer info
+        return self.sale_order_id.action_send_with_ngsign(signer_info=signer_info)

@@ -37,12 +37,12 @@ class SaleOrder(models.Model):
             raise UserError(_('NGSIGN API URL and Bearer Token must be configured in settings.'))
         return api_url, bearer_token
 
-    def action_send_with_ngsign(self, signer_partner=None):
+    def action_send_with_ngsign(self, signer_partner=None, signer_info=None):
         """Send the quotation to NGSIGN for signature."""
         self.ensure_one()
 
         # If customer is a company and no signer selected, open wizard
-        if not signer_partner and self.partner_id.is_company:
+        if not signer_partner and not signer_info and self.partner_id.is_company:
             # Get company contacts
             contacts = self.env['res.partner'].search([
                 ('id', 'child_of', self.partner_id.id),
@@ -64,8 +64,17 @@ class SaleOrder(models.Model):
                     }
                 }
         
-        # Use selected signer or default to partner
-        signer = signer_partner or self.partner_id
+        # Use signer_info from wizard, or signer_partner, or default to partner
+        if signer_info:
+            # Create a simple object to access dict values like attributes
+            class SignerObj:
+                def __init__(self, data):
+                    self.name = data.get('name')
+                    self.email = data.get('email')
+                    self.phone = data.get('phone')
+            signer = SignerObj(signer_info)
+        else:
+            signer = signer_partner or self.partner_id
 
         # --- Validations ---
         if not signer.email:

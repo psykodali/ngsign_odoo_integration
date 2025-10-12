@@ -7,22 +7,45 @@
             <field name="model">ngsign.signer.wizard</field>
             <field name="arch" type="xml">
                 <form string="Select Signer">
-                    <group>
-                        <field name="sale_order_id" invisible="1"/>
-                        <field name="partner_id" invisible="1"/>
-                        <field name="available_signers" invisible="1"/>
+                    <sheet>
                         <group>
-                            <label for="signer_id" string="Select Contact to Sign"/>
+                            <field name="sale_order_id" invisible="1"/>
+                            <field name="partner_id" invisible="1"/>
+                        </group>
+                        
+                        <group string="Select Contact">
                             <field name="signer_id" 
                                    options="{'no_create': True, 'no_open': True}"
                                    placeholder="Choose a contact from the company..."/>
                         </group>
-                    </group>
+                        
+                        <group string="Contact Information" invisible="not signer_id">
+                            <group>
+                                <field name="signer_email" 
+                                       placeholder="contact@example.com"
+                                       required="signer_id"/>
+                                <field name="signer_phone" 
+                                       placeholder="+216 12 345 678"/>
+                            </group>
+                        </group>
+                        
+                        <group invisible="not signer_id">
+                            <field name="update_contact" 
+                                   widget="boolean_toggle"
+                                   string="Save changes to contact"/>
+                        </group>
+                        
+                        <div class="alert alert-info text-center" role="alert" invisible="not update_contact">
+                            <i class="fa fa-info-circle"/> The contact information will be updated with the values above.
+                        </div>
+                    </sheet>
+                    
                     <footer>
                         <button string="Send for Signature" 
                                 name="action_confirm_signer" 
                                 type="object" 
-                                class="btn-primary"/>
+                                class="btn-primary"
+                                invisible="not signer_id"/>
                         <button string="Cancel" 
                                 class="btn-secondary" 
                                 special="cancel"/>
