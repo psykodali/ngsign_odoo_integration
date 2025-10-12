@@ -7,31 +7,30 @@
             <field name="model">res.config.settings</field>
             <field name="inherit_id" ref="base.res_config_settings_view_form"/>
             <field name="arch" type="xml">
-                <!-- Add to General Settings section -->
-                <xpath expr="//div[@class='app_settings_block' and @data-string='General Settings']//h2" position="after">
+                <!-- Add inside the form, will appear in General Settings -->
+                <xpath expr="//app[@name='general_settings']" position="inside">
+                    <h2>NGSIGN Integration</h2>
                     <div class="row mt16 o_settings_container">
-                        <div class="col-12 col-lg-6 o_setting_box" id="ngsign_settings">
+                        <div class="col-12 col-lg-6 o_setting_box">
                             <div class="o_setting_left_pane">
                                 <field name="ngsign_url" invisible="1"/>
                             </div>
                             <div class="o_setting_right_pane">
-                                <label string="NGSIGN Integration"/>
+                                <label string="NGSIGN Configuration"/>
                                 <div class="text-muted">
                                     Configure NGSIGN API for electronic signatures
                                 </div>
                                 <div class="content-group mt16">
-                                    <div class="row">
-                                        <label string="API URL" for="ngsign_url" class="col-lg-3 o_light_label"/>
+                                    <div class="row mt8">
+                                        <label string="API URL" for="ngsign_url" class="col-3 o_light_label"/>
                                         <field name="ngsign_url" 
-                                               placeholder="https://sandbox.ng-sign.com/server/protected/transaction/"
-                                               class="oe_inline"/>
+                                               placeholder="https://sandbox.ng-sign.com/server/protected/transaction/"/>
                                     </div>
                                     <div class="row">
-                                        <label string="Bearer Token" for="ngsign_bearer_token" class="col-lg-3 o_light_label"/>
+                                        <label string="Bearer Token" for="ngsign_bearer_token" class="col-3 o_light_label"/>
                                         <field name="ngsign_bearer_token" 
                                                password="True" 
-                                               placeholder="Enter your bearer token"
-                                               class="oe_inline"/>
+                                               placeholder="Enter your bearer token"/>
                                     </div>
                                 </div>
                             </div>
