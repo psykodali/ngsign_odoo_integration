@@ -22,6 +22,47 @@ class NgsignSignerWizard(models.TransientModel):
         default=False,
         help="If checked, the contact's email and phone will be updated with the values entered above"
     )
+    
+    # Previous signature info
+    has_previous_signature = fields.Boolean(
+        string='Has Previous Signature',
+        compute='_compute_previous_signature'
+    )
+    previous_signature_email = fields.Char(
+        string='Previously Sent To',
+        compute='_compute_previous_signature'
+    )
+    previous_signature_date = fields.Char(
+        string='Previous Send Date',
+        compute='_compute_previous_signature'
+    )
+
+    @api.depends('sale_order_id')
+    def _compute_previous_signature(self):
+        """Check if this order was already sent for signature."""
+        for wizard in self:
+            if wizard.sale_order_id and wizard.sale_order_id.ngsign_transaction_uuid:
+                wizard.has_previous_signature = True
+                # Try to extract email from chatter messages
+                messages = wizard.sale_order_id.message_ids.filtered(
+                    lambda m: 'Document sent to' in (m.body or '')
+                )
+                if messages:
+                    # Get the most recent message
+                    last_message = messages[0]
+                    # Extract email from message body
+                    import re
+                    email_pattern = r'\(([^)]+@[^)]+)\)'
+                    match = re.search(email_pattern, last_message.body)
+                    wizard.previous_signature_email = match.group(1) if match else 'Unknown'
+                    wizard.previous_signature_date = last_message.create_date.strftime('%Y-%m-%d %H:%M') if last_message.create_date else ''
+                else:
+                    wizard.previous_signature_email = 'Unknown'
+                    wizard.previous_signature_date = ''
+            else:
+                wizard.has_previous_signature = False
+                wizard.previous_signature_email = ''
+                wizard.previous_signature_date = ''
 
     @api.onchange('signer_id')
     def _onchange_signer_id(self):

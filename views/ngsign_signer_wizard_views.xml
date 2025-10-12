@@ -11,7 +11,29 @@
                         <group>
                             <field name="sale_order_id" invisible="1"/>
                             <field name="partner_id" invisible="1"/>
+                            <field name="has_previous_signature" invisible="1"/>
+                            <field name="previous_signature_email" invisible="1"/>
+                            <field name="previous_signature_date" invisible="1"/>
                         </group>
+                        
+                        <!-- Warning banner if already sent -->
+                        <div class="alert alert-warning" role="alert" invisible="not has_previous_signature">
+                            <div class="d-flex align-items-center">
+                                <i class="fa fa-exclamation-triangle fa-2x me-3"/>
+                                <div>
+                                    <strong>This document was already sent for signature</strong>
+                                    <div class="mt-1">
+                                        Previously sent to: <strong><field name="previous_signature_email" readonly="1" class="oe_inline"/></strong>
+                                    </div>
+                                    <div class="text-muted small" invisible="not previous_signature_date">
+                                        On: <field name="previous_signature_date" readonly="1" class="oe_inline"/>
+                                    </div>
+                                    <div class="mt-2">
+                                        Sending again will create a new signature request.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         
                         <group string="Select Contact">
                             <field name="signer_id" 
@@ -46,6 +68,12 @@
                                 type="object" 
                                 class="btn-primary"
                                 invisible="not signer_id"/>
+                        <button string="Resend for Signature" 
+                                name="action_confirm_signer" 
+                                type="object" 
+                                class="btn-warning"
+                                invisible="not has_previous_signature or not signer_id"
+                                confirm="This will create a new signature request. The previous request will remain active. Are you sure you want to continue?"/>
                         <button string="Cancel" 
                                 class="btn-secondary" 
                                 special="cancel"/>
