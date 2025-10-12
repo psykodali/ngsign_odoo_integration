@@ -1,44 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!-- Add NGSIGN settings to General Settings -->
         <record id="res_config_settings_view_form" model="ir.ui.view">
             <field name="name">res.config.settings.view.form.inherit.ngsign</field>
             <field name="model">res.config.settings</field>
             <field name="inherit_id" ref="base.res_config_settings_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//div[@class='app_settings_block' and @data-string='Companies']" position="after">
-                    <div class="app_settings_block" data-string="NGSIGN Integration" string="NGSIGN Integration" data-key="ngsign_integration">
-                        <h2>NGSIGN Integration</h2>
-                        <div class="row mt16 o_settings_container">
-                            <div class="col-12 col-lg-6 o_setting_box">
-                                <div class="o_setting_left_pane"></div>
-                                <div class="o_setting_right_pane">
-                                    <label for="ngsign_url" string="NGSIGN API URL"/>
-                                    <div class="text-muted">
-                                        Base URL for the NGSIGN API endpoint
-                                    </div>
-                                    <field name="ngsign_url" 
-                                           class="oe_inline" 
-                                           placeholder="https://sandbox.ng-sign.com/server/protected/transaction/"/>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-6 o_setting_box">
-                                <div class="o_setting_left_pane"></div>
-                                <div class="o_setting_right_pane">
-                                    <label for="ngsign_bearer_token" string="NGSIGN Bearer Token"/>
-                                    <div class="text-muted">
-                                        Your API authentication bearer token
-                                    </div>
-                                    <field name="ngsign_bearer_token" 
-                                           password="True" 
-                                           class="oe_inline"
-                                           placeholder="Enter your bearer token"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <group string="NGSIGN Integration Settings" class="mt-3">
+                        <field name="ngsign_url" placeholder="https://sandbox.ng-sign.com/server/protected/transaction/"/>
+                        <field name="ngsign_bearer_token" password="True" placeholder="Enter your bearer token"/>
+                    </group>
                 </xpath>
             </field>
         </record>
+
+        <!-- Create a direct action to open settings -->
+        <record id="action_ngsign_config" model="ir.actions.act_window">
+            <field name="name">NGSIGN Configuration</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+        <!-- Add menu item in Settings -->
+        <menuitem 
+            id="menu_ngsign_config"
+            name="NGSIGN Integration"
+            parent="base.menu_administration"
+            action="action_ngsign_config"
+            sequence="100"/>
     </data>
 </odoo>
