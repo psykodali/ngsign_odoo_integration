@@ -2,8 +2,8 @@
 <odoo>
     <data>
         <record id="view_order_form_inherit_ngsign" model="ir.ui.view">
-            <field name="name">ngsign.sale.order.form.inherit.ngsign</field>
-            <field name="model">ngsign.sale.order</field>
+            <field name="name">sale.order.form.inherit.ngsign</field>
+            <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <!-- Add the button to the header -->
