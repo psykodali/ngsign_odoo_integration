@@ -1,4 +1,4 @@
-# models/res_config_settings.py
+# -*- coding: utf-8 -*-
 from odoo import models, fields
 
 class ResConfigSettings(models.TransientModel):
