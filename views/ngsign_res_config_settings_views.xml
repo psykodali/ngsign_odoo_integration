@@ -16,18 +16,18 @@
                                 <field name="ngsign_url" invisible="1"/>
                             </div>
                             <div class="o_setting_right_pane">
-                                <label string="NGSIGN Configuration"/>
+                                <span class="o_form_label">NGSIGN Configuration</span>
                                 <div class="text-muted">
                                     Configure NGSIGN API for electronic signatures
                                 </div>
                                 <div class="content-group mt16">
                                     <div class="row mt8">
-                                        <label string="API URL" for="ngsign_url" class="col-3 o_light_label"/>
+                                        <label for="ngsign_url" string="API URL" class="col-3 o_light_label"/>
                                         <field name="ngsign_url" 
                                                placeholder="https://sandbox.ng-sign.com/server/protected/transaction/"/>
                                     </div>
                                     <div class="row">
-                                        <label string="Bearer Token" for="ngsign_bearer_token" class="col-3 o_light_label"/>
+                                        <label for="ngsign_bearer_token" string="Bearer Token" class="col-3 o_light_label"/>
                                         <field name="ngsign_bearer_token" 
                                                password="True" 
                                                placeholder="Enter your bearer token"/>
