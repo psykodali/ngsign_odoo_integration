@@ -90,15 +90,15 @@ class SaleOrder(models.Model):
             pass  # Fall back to page 1 if counting fails
 
         # --- Prepare Signer Information ---
-        name_parts = self.partner_id.name.split(' ', 1)
+        name_parts = signer.name.split(' ', 1)
         first_name = name_parts[0]
         last_name = name_parts[1] if len(name_parts) > 1 else ''
         
         signers = [{
             'first_name': first_name,
             'last_name': last_name,
-            'email': self.partner_id.email,
-            'phone': self.partner_id.phone or '',
+            'email': signer.email,
+            'phone': signer.phone or '',
             'sig_type': 'CERTIFIED_TIMESTAMP',
             'page': last_page_number,
             'x_axis': 100,
@@ -178,9 +178,17 @@ class SaleOrder(models.Model):
             
             # Post message in chatter
             signer_name = f"{signer.get('first_name')} {signer.get('last_name')}"
-            self.message_post(
-                body=_('Document sent to %s (%s) for signature.') % (signer_name, signer.get('email'))
+            message_body = _(
+                'Document sent to <b>%s</b> (%s) for signature.<br/>'
+                'Phone: %s<br/>'
+                'Company: %s'
+            ) % (
+                signer_name, 
+                signer.get('email'),
+                signer.get('phone') or _('Not provided'),
+                self.partner_id.name
             )
+            self.message_post(body=message_body)
 
             # Schedule activity for the user
             self.activity_schedule(
