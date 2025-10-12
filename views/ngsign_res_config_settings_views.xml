@@ -1,41 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!-- Add NGSIGN settings to General Settings -->
         <record id="res_config_settings_view_form" model="ir.ui.view">
             <field name="name">res.config.settings.view.form.inherit.ngsign</field>
             <field name="model">res.config.settings</field>
             <field name="inherit_id" ref="base.res_config_settings_view_form"/>
             <field name="arch" type="xml">
-                <field name="company_id" position="after">
-                    <h2 class="mt32">NGSIGN Integration</h2>
+                <!-- Add to General Settings section -->
+                <xpath expr="//div[@class='app_settings_block' and @data-string='General Settings']//h2" position="after">
                     <div class="row mt16 o_settings_container">
-                        <div class="col-12 col-lg-6 o_setting_box">
-                            <div class="o_setting_left_pane"></div>
-                            <div class="o_setting_right_pane">
-                                <label for="ngsign_url" string="NGSIGN API URL"/>
-                                <div class="text-muted">
-                                    Base URL for the NGSIGN API endpoint
-                                </div>
-                                <field name="ngsign_url" 
-                                       class="oe_inline" 
-                                       placeholder="https://sandbox.ng-sign.com/server/protected/transaction/"/>
+                        <div class="col-12 col-lg-6 o_setting_box" id="ngsign_settings">
+                            <div class="o_setting_left_pane">
+                                <field name="ngsign_url" invisible="1"/>
                             </div>
-                        </div>
-                        <div class="col-12 col-lg-6 o_setting_box">
-                            <div class="o_setting_left_pane"></div>
                             <div class="o_setting_right_pane">
-                                <label for="ngsign_bearer_token" string="NGSIGN Bearer Token"/>
+                                <label string="NGSIGN Integration"/>
                                 <div class="text-muted">
-                                    Your API authentication bearer token
+                                    Configure NGSIGN API for electronic signatures
                                 </div>
-                                <field name="ngsign_bearer_token" 
-                                       password="True" 
-                                       class="oe_inline"
-                                       placeholder="Enter your bearer token"/>
+                                <div class="content-group mt16">
+                                    <div class="row">
+                                        <label string="API URL" for="ngsign_url" class="col-lg-3 o_light_label"/>
+                                        <field name="ngsign_url" 
+                                               placeholder="https://sandbox.ng-sign.com/server/protected/transaction/"
+                                               class="oe_inline"/>
+                                    </div>
+                                    <div class="row">
+                                        <label string="Bearer Token" for="ngsign_bearer_token" class="col-lg-3 o_light_label"/>
+                                        <field name="ngsign_bearer_token" 
+                                               password="True" 
+                                               placeholder="Enter your bearer token"
+                                               class="oe_inline"/>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </field>
+                </xpath>
             </field>
         </record>
     </data>

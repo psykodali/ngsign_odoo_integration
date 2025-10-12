@@ -10,7 +10,7 @@
     "depends": ["base", "mail", "sale"],
     "data": [
         "views/ngsign_sale_order_views.xml",
-        # "views/ngsign_res_config_settings_views.xml",
+        "views/ngsign_res_config_settings_views.xml",
     ],
     "application": True,
     "installable": True,
