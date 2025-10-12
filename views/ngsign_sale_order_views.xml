@@ -12,7 +12,7 @@
                             string="Send with NGSIGN" 
                             type="object" 
                             class="btn-primary"
-                            invisible="state not in ['draft', 'sent'] or ngsign_transaction_uuid"/>
+                            invisible="state not in ['draft', 'sent']"/>
                 </xpath>
                 
                 <!-- Add fields to display transaction info on the form -->
