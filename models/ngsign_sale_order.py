@@ -1,4 +1,4 @@
-# models/sale_order.py
+# -*- coding: utf-8 -*-
 import base64
 import io
 import json
@@ -13,11 +13,20 @@ try:
 except ImportError:
     PyPDF2 = None
 
+
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    ngsign_transaction_uuid = fields.Char(string='NGSIGN Transaction UUID', readonly=True, copy=False)
-    ngsign_signature_url = fields.Char(string='NGSIGN Signature URL', readonly=True, copy=False)
+    ngsign_transaction_uuid = fields.Char(
+        string='NGSIGN Transaction UUID', 
+        readonly=True, 
+        copy=False
+    )
+    ngsign_signature_url = fields.Char(
+        string='NGSIGN Signature URL', 
+        readonly=True, 
+        copy=False
+    )
 
     def _get_api_credentials(self):
         """Fetches API credentials from Odoo system parameters."""
@@ -28,14 +37,41 @@ class SaleOrder(models.Model):
             raise UserError(_('NGSIGN API URL and Bearer Token must be configured in settings.'))
         return api_url, bearer_token
 
-    def action_send_with_ngsign(self):
+    def action_send_with_ngsign(self, signer_partner=None):
+        """Send the quotation to NGSIGN for signature."""
         self.ensure_one()
 
+        # If customer is a company and no signer selected, open wizard
+        if not signer_partner and self.partner_id.is_company:
+            # Get company contacts
+            contacts = self.env['res.partner'].search([
+                ('id', 'child_of', self.partner_id.id),
+                ('type', '=', 'contact'),
+                ('id', '!=', self.partner_id.id)
+            ])
+            
+            if contacts:
+                # Open wizard to select signer
+                return {
+                    'name': _('Select Signer'),
+                    'type': 'ir.actions.act_window',
+                    'res_model': 'ngsign.signer.wizard',
+                    'view_mode': 'form',
+                    'target': 'new',
+                    'context': {
+                        'default_sale_order_id': self.id,
+                        'default_partner_id': self.partner_id.id,
+                    }
+                }
+        
+        # Use selected signer or default to partner
+        signer = signer_partner or self.partner_id
+
         # --- Validations ---
-        if not self.partner_id.email:
-            raise UserError(_("Customer email is required to send the document for signature."))
-        if not self.partner_id.name:
-            raise UserError(_("Customer name is required to send the document for signature."))
+        if not signer.email:
+            raise UserError(_("Signer email is required to send the document for signature."))
+        if not signer.name:
+            raise UserError(_("Signer name is required to send the document for signature."))
         if not PyPDF2:
             raise UserError(_("The required library PyPDF2 is not installed. Please install it by running 'pip install PyPDF2'."))
 
@@ -64,19 +100,33 @@ class SaleOrder(models.Model):
             'email': self.partner_id.email,
             'phone': self.partner_id.phone or '',
             'sig_type': 'CERTIFIED_TIMESTAMP',
-            'page': last_page_number, 'x_axis': 100, 'y_axis': 100,
+            'page': last_page_number,
+            'x_axis': 100,
+            'y_axis': 100,
         }]
 
         # --- API Interaction ---
         api_url, bearer_token = self._get_api_credentials()
-        headers = {'Authorization': f'Bearer {bearer_token}', 'Content-Type': 'application/json'}
+        headers = {
+            'Authorization': f'Bearer {bearer_token}',
+            'Content-Type': 'application/json'
+        }
         file_name = f"{self.name}.pdf"
 
         try:
             # Step 1: Upload PDF
             pdf_base64 = base64.b64encode(pdf_content).decode('utf-8')
-            upload_payload = [{"fileName": file_name, "fileExtension": "pdf", "fileBase64": pdf_base64}]
-            upload_response = requests.post(f"{api_url}/pdfs", headers=headers, data=json.dumps(upload_payload), timeout=30)
+            upload_payload = [{
+                "fileName": file_name,
+                "fileExtension": "pdf",
+                "fileBase64": pdf_base64
+            }]
+            upload_response = requests.post(
+                f"{api_url}/pdfs",
+                headers=headers,
+                data=json.dumps(upload_payload),
+                timeout=30
+            )
             upload_response.raise_for_status()
             upload_data = upload_response.json()
             
@@ -88,16 +138,29 @@ class SaleOrder(models.Model):
             launch_payload = {
                 "sigConf": [{
                     "signer": {
-                        "firstName": signer.get('first_name'), "lastName": signer.get('last_name'),
-                        "email": signer.get('email'), "phoneNumber": signer.get('phone'),
+                        "firstName": signer.get('first_name'),
+                        "lastName": signer.get('last_name'),
+                        "email": signer.get('email'),
+                        "phoneNumber": signer.get('phone'),
                     },
                     "sigType": signer.get('sig_type'),
-                    "docsConfigs": [{"page": signer.get('page'), "xAxis": signer.get('x_axis'), "yAxis": signer.get('y_axis'), "identifier": pdf_identifier}],
-                    "mode": "BY_MAIL", "otp": "NONE"
+                    "docsConfigs": [{
+                        "page": signer.get('page'),
+                        "xAxis": signer.get('x_axis'),
+                        "yAxis": signer.get('y_axis'),
+                        "identifier": pdf_identifier
+                    }],
+                    "mode": "BY_MAIL",
+                    "otp": "NONE"
                 }],
                 "message": "Invitation de signature de commande"
             }
-            launch_response = requests.post(f"{api_url}/{transaction_uuid}/launch", headers=headers, data=json.dumps(launch_payload), timeout=30)
+            launch_response = requests.post(
+                f"{api_url}/{transaction_uuid}/launch",
+                headers=headers,
+                data=json.dumps(launch_payload),
+                timeout=30
+            )
             launch_response.raise_for_status()
             launch_data = launch_response.json()
             
@@ -115,7 +178,9 @@ class SaleOrder(models.Model):
             
             # Post message in chatter
             signer_name = f"{signer.get('first_name')} {signer.get('last_name')}"
-            self.message_post(body=_('Document sent to %s (%s) for signature.') % (signer_name, signer.get('email')))
+            self.message_post(
+                body=_('Document sent to %s (%s) for signature.') % (signer_name, signer.get('email'))
+            )
 
             # Schedule activity for the user
             self.activity_schedule(
@@ -132,7 +197,8 @@ class SaleOrder(models.Model):
             except json.JSONDecodeError:
                 pass
             error_msg = _("API Error: %(status_code)s\nResponse:\n%(response_body)s") % {
-                'status_code': e.response.status_code, 'response_body': response_body,
+                'status_code': e.response.status_code,
+                'response_body': response_body,
             }
             self.message_post(body=_('Failed to send document: %s') % error_msg)
             raise UserError(_('Failed to send document to NGSIGN.\n\n%s') % error_msg)

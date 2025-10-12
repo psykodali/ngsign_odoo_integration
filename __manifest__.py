@@ -9,6 +9,8 @@
     "category": "Sign",
     "depends": ["base", "mail", "sale"],
     "data": [
+        "security/ir.model.access.csv",
+        "views/ngsign_signer_wizard_views.xml",
         "views/ngsign_sale_order_views.xml",
         "views/ngsign_res_config_settings_views.xml",
     ],
