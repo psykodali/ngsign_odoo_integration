@@ -6,7 +6,7 @@
     "author": "NGSign",
     "website": "https://www.ngsign.tn",
     "license": "LGPL-3",
-    "category": "Sign",
+    "category": "Digital Signature",
     "depends": ["base", "mail", "sale"],
     "data": [
         "security/ir.model.access.csv",
