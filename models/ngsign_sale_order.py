@@ -7,29 +7,18 @@ import requests
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
-# Import the PyPDF2 library. It's recommended to handle the case where it might not be installed.
 try:
     import PyPDF2
 except ImportError:
     PyPDF2 = None
 
-
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    ngsign_transaction_uuid = fields.Char(
-        string='NGSIGN Transaction UUID', 
-        readonly=True, 
-        copy=False
-    )
-    ngsign_signature_url = fields.Char(
-        string='NGSIGN Signature URL', 
-        readonly=True, 
-        copy=False
-    )
+    ngsign_transaction_uuid = fields.Char(string='NGSIGN Transaction UUID', readonly=True, copy=False)
+    ngsign_signature_url = fields.Char(string='NGSIGN Signature URL', readonly=True, copy=False)
 
     def _get_api_credentials(self):
-        """Fetches API credentials from Odoo system parameters."""
         get_param = self.env['ir.config_parameter'].sudo().get_param
         api_url = get_param('ngsign.ngsign_url')
         bearer_token = get_param('ngsign.ngsign_bearer_token')
@@ -67,19 +56,16 @@ class SaleOrder(models.Model):
              raise UserError(_("The selected signature template (ID: %s) could not be found.") % template_id)
 
         # --- PDF Generation (Robust Method) ---
-        # Find the specific report action associated with the sale.order model.
-        # This avoids issues with hard-coded names and module customizations.
         report_action = self.env['ir.actions.report']._get_action_for_model_name('sale.order')
         if not report_action:
             raise UserError(_("No default report action is configured for Sales Orders in your system. Please check your configuration in Settings -> Technical -> Reports."))
 
-        # The result is a dictionary, we need the actual record
         report_record = self.env['ir.actions.report'].browse(report_action.get('id'))
         if not report_record.exists():
-            raise UserError(_("The report action for Sales Orders could not be found. It may have been deleted."))
+             raise UserError(_("The report action for Sales Orders could not be found. It may have been deleted."))
 
         pdf_content, __ = report_record._render_qweb_pdf(self.id)
-                
+
         if not pdf_content:
             raise UserError(_("Odoo failed to generate the quotation PDF. Please check your report configuration."))
 
@@ -106,33 +92,19 @@ class SaleOrder(models.Model):
         last_name = name_parts[1] if len(name_parts) > 1 else ''
         
         api_url, bearer_token = self._get_api_credentials()
-        headers = {
-            'Authorization': f'Bearer {bearer_token}',
-            'Content-Type': 'application/json'
-        }
+        headers = {'Authorization': f'Bearer {bearer_token}', 'Content-Type': 'application/json'}
         file_name = f"{self.name}.pdf"
 
         try:
-            # Step 1: Upload PDF
             pdf_base64 = base64.b64encode(pdf_content).decode('utf-8')
-            upload_payload = [{
-                "fileName": file_name,
-                "fileExtension": "pdf",
-                "fileBase64": pdf_base64
-            }]
-            upload_response = requests.post(
-                f"{api_url}/pdfs",
-                headers=headers,
-                data=json.dumps(upload_payload),
-                timeout=30
-            )
+            upload_payload = [{"fileName": file_name, "fileExtension": "pdf", "fileBase64": pdf_base64}]
+            upload_response = requests.post(f"{api_url}/pdfs", headers=headers, data=json.dumps(upload_payload), timeout=30)
             upload_response.raise_for_status()
             upload_data = upload_response.json()
             
             transaction_uuid = upload_data['object']['uuid']
             pdf_identifier = upload_data['object']['pdfs'][0]['identifier']
             
-            # Step 2: Configure and Launch Transaction
             launch_payload = {
                 "sigConf": [{
                     "signer": {
@@ -153,12 +125,7 @@ class SaleOrder(models.Model):
                 }],
                 "message": f"Signature request for your quotation {self.name}"
             }
-            launch_response = requests.post(
-                f"{api_url}/{transaction_uuid}/launch",
-                headers=headers,
-                data=json.dumps(launch_payload),
-                timeout=30
-            )
+            launch_response = requests.post(f"{api_url}/{transaction_uuid}/launch", headers=headers, data=json.dumps(launch_payload), timeout=30)
             launch_response.raise_for_status()
             launch_data = launch_response.json()
             
@@ -167,17 +134,9 @@ class SaleOrder(models.Model):
                 first_signer_data = launch_data['object']['signers'][0]
                 signature_url = first_signer_data.get('signatureUrl') or first_signer_data.get('url')
 
-            self.write({
-                'ngsign_transaction_uuid': transaction_uuid,
-                'ngsign_signature_url': signature_url,
-            })
+            self.write({'ngsign_transaction_uuid': transaction_uuid, 'ngsign_signature_url': signature_url})
             
-            message_body = _(
-                'Document sent to <b>%s</b> (%s) for signature via NGSIGN.'
-            ) % (
-                signer_info.get('name'), 
-                signer_info.get('email'),
-            )
+            message_body = _('Document sent to <b>%s</b> (%s) for signature via NGSIGN.') % (signer_info.get('name'), signer_info.get('email'))
             self.message_post(body=message_body)
 
             self.activity_schedule(
@@ -193,10 +152,7 @@ class SaleOrder(models.Model):
                 response_body = json.dumps(e.response.json(), indent=2)
             except json.JSONDecodeError:
                 pass
-            error_msg = _("API Error: %(status_code)s\nResponse:\n%(response_body)s") % {
-                'status_code': e.response.status_code,
-                'response_body': response_body,
-            }
+            error_msg = _("API Error: %(status_code)s\nResponse:\n%(response_body)s") % {'status_code': e.response.status_code, 'response_body': response_body}
             raise UserError(_('Failed to send document to NGSIGN.\n\n%s') % error_msg)
 
         except requests.exceptions.RequestException as e:
