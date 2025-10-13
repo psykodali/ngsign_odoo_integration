@@ -37,11 +37,6 @@ class SaleOrder(models.Model):
             raise UserError(_('NGSIGN API URL and Bearer Token must be configured in settings.'))
         return api_url, bearer_token
 
-    # ====================================================================
-    # FIX: The method signature is updated to accept template_id.
-    # The logic is now split: if no signer_info, open the wizard.
-    # Otherwise, process the data received from the wizard.
-    # ====================================================================
     def action_send_with_ngsign(self, signer_info=None, template_id=None):
         """
         Initiates the NGSIGN process.
@@ -50,8 +45,6 @@ class SaleOrder(models.Model):
         """
         self.ensure_one()
 
-        # --- Path 1: User clicks the "Send with NGSIGN" button on the Sale Order ---
-        # If no signer info is provided, open the wizard to collect it.
         if not signer_info:
             return {
                 'name': _('Select Signer and Signature Template'),
@@ -65,31 +58,30 @@ class SaleOrder(models.Model):
                 }
             }
 
-        # --- Path 2: Wizard calls this method back with the collected data ---
-        
-        # --- FIX: Perform clear validations on the data from the wizard ---
         if not signer_info.get('email'):
             raise UserError(_("Signer email is required to send the document for signature."))
         if not signer_info.get('name'):
             raise UserError(_("Signer name is required to send the document for signature."))
         if not template_id:
-            # This is the validation that was originally causing the error.
             raise UserError(_("A signature template must be selected to proceed."))
         if not PyPDF2:
             raise UserError(_("The required library PyPDF2 is not installed. Please install it by running 'pip install PyPDF2'."))
 
-        # --- Get the selected template record ---
         template = self.env['ngsign.signature.template'].browse(template_id)
         if not template.exists():
              raise UserError(_("The selected signature template (ID: %s) could not be found.") % template_id)
 
-        # --- PDF Generation ---
         report_action = self.env['ir.actions.report']._get_report_from_name('sale.action_report_saleorder')
-        pdf_content, _ = report_action._render_qweb_pdf(self.id)
+        
+        # ====================================================================
+        # FIX: Changed the throwaway variable from `_` to `__` to avoid
+        # conflict with the translation function `_`.
+        # ====================================================================
+        pdf_content, __ = report_action._render_qweb_pdf(self.id)
+        
         if not pdf_content:
             raise UserError(_("Could not generate the quotation PDF. Please check your report configuration."))
 
-        # --- FIX: Determine signature page number based on template settings ---
         page_to_sign = 0
         if template.page_type == 'first':
             page_to_sign = 1
@@ -108,12 +100,10 @@ class SaleOrder(models.Model):
         if page_to_sign == 0:
             raise UserError(_("Could not determine the page for the signature based on the template settings."))
 
-        # --- Prepare Signer Information ---
         name_parts = signer_info.get('name').split(' ', 1)
         first_name = name_parts[0]
         last_name = name_parts[1] if len(name_parts) > 1 else ''
         
-        # --- API Interaction ---
         api_url, bearer_token = self._get_api_credentials()
         headers = {
             'Authorization': f'Bearer {bearer_token}',
@@ -142,7 +132,6 @@ class SaleOrder(models.Model):
             pdf_identifier = upload_data['object']['pdfs'][0]['identifier']
             
             # Step 2: Configure and Launch Transaction
-            # --- FIX: Use data from the template for the payload ---
             launch_payload = {
                 "sigConf": [{
                     "signer": {
@@ -151,11 +140,11 @@ class SaleOrder(models.Model):
                         "email": signer_info.get('email'),
                         "phoneNumber": signer_info.get('phone') or '',
                     },
-                    "sigType": template.signature_type, # From template
+                    "sigType": template.signature_type,
                     "docsConfigs": [{
-                        "page": page_to_sign,              # From template logic
-                        "xAxis": template.x_axis,           # From template
-                        "yAxis": template.y_axis,           # From template
+                        "page": page_to_sign,
+                        "xAxis": template.x_axis,
+                        "yAxis": template.y_axis,
                         "identifier": pdf_identifier
                     }],
                     "mode": "BY_MAIL",
@@ -172,19 +161,16 @@ class SaleOrder(models.Model):
             launch_response.raise_for_status()
             launch_data = launch_response.json()
             
-            # Extract Signature URL
             signature_url = None
             if launch_data.get('object', {}).get('signers'):
                 first_signer_data = launch_data['object']['signers'][0]
                 signature_url = first_signer_data.get('signatureUrl') or first_signer_data.get('url')
 
-            # Update Sale Order and Log Activity
             self.write({
                 'ngsign_transaction_uuid': transaction_uuid,
                 'ngsign_signature_url': signature_url,
             })
             
-            # Post message in chatter
             message_body = _(
                 'Document sent to <b>%s</b> (%s) for signature via NGSIGN.'
             ) % (
@@ -193,7 +179,6 @@ class SaleOrder(models.Model):
             )
             self.message_post(body=message_body)
 
-            # Schedule activity for the user
             self.activity_schedule(
                 'mail.mail_activity_data_todo',
                 summary=_('Follow up on signature'),
