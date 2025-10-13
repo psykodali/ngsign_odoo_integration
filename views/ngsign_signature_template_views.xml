@@ -6,7 +6,7 @@
             <field name="name">ngsign.signature.template.tree</field>
             <field name="model">ngsign.signature.template</field>
             <field name="arch" type="xml">
-                <tree string="Signature Templates">
+                <list string="Signature Templates">
                     <field name="sequence" widget="handle"/>
                     <field name="name"/>
                     <field name="page_type"/>
@@ -15,7 +15,7 @@
                     <field name="y_axis"/>
                     <field name="signature_type"/>
                     <field name="active" widget="boolean_toggle"/>
-                </tree>
+                </list>
             </field>
         </record>
 
