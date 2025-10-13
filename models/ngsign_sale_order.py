@@ -55,16 +55,16 @@ class SaleOrder(models.Model):
         if not template.exists():
              raise UserError(_("The selected signature template (ID: %s) could not be found.") % template_id)
 
-        # --- PDF Generation (Robust Method) ---
-        report_action = self.env['ir.actions.report']._get_action_for_model_name('sale.order')
+        # --- PDF Generation (Universally Compatible Method) ---
+        report_action = self.env['ir.actions.report'].search([
+            ('model', '=', 'sale.order'),
+            ('report_type', '=', 'qweb-pdf'),
+        ], limit=1)
+
         if not report_action:
-            raise UserError(_("No default report action is configured for Sales Orders in your system. Please check your configuration in Settings -> Technical -> Reports."))
+            raise UserError(_("No PDF report action could be found for the 'sale.order' model. Please ensure the Sales module is correctly installed and a default PDF report is available."))
 
-        report_record = self.env['ir.actions.report'].browse(report_action.get('id'))
-        if not report_record.exists():
-             raise UserError(_("The report action for Sales Orders could not be found. It may have been deleted."))
-
-        pdf_content, __ = report_record._render_qweb_pdf(self.id)
+        pdf_content, __ = report_action._render_qweb_pdf(self.id)
 
         if not pdf_content:
             raise UserError(_("Odoo failed to generate the quotation PDF. Please check your report configuration."))
