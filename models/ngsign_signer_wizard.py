@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import re
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
@@ -59,7 +60,6 @@ class NgsignSignerWizard(models.TransientModel):
                     # Get the most recent message
                     last_message = messages[0]
                     # Extract email from message body
-                    import re
                     email_pattern = r'\(([^)]+@[^)]+)\)'
                     match = re.search(email_pattern, last_message.body)
                     wizard.previous_signature_email = match.group(1) if match else 'Unknown'
@@ -94,6 +94,13 @@ class NgsignSignerWizard(models.TransientModel):
         
         if not self.signer_email:
             raise UserError(_("Email is required to send for signature."))
+            
+        # ====================================================================
+        # FIX 1: Add validation for the template directly in the wizard.
+        # This provides a better user experience by catching the error earlier.
+        # ====================================================================
+        if not self.template_id:
+            raise UserError(_("Please select a signature template."))
         
         # Update contact if checkbox is checked
         if self.update_contact:
@@ -110,5 +117,11 @@ class NgsignSignerWizard(models.TransientModel):
             'phone': self.signer_phone or '',
         }
         
-        # Call the send method with the signer info
-        return self.sale_order_id.action_send_with_ngsign(signer_info=signer_info)
+        # ====================================================================
+        # FIX 2: Pass the template_id to the sale_order's method.
+        # This ensures the next method knows which template to use.
+        # ====================================================================
+        return self.sale_order_id.action_send_with_ngsign(
+            signer_info=signer_info, 
+            template_id=self.template_id.id
+        )
