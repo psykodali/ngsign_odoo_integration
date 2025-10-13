@@ -76,7 +76,7 @@ class SaleOrder(models.Model):
         try:
             _logger.info("Attempting to generate PDF for sale order")
             
-            # Method 1: Try to get the default quotation report
+            # Use the simpler _render method which handles everything
             report = self.env['ir.actions.report']._get_report_from_name('sale.report_saleorder')
             
             if not report:
@@ -95,8 +95,9 @@ class SaleOrder(models.Model):
 
             _logger.info(f"Using report: {report.name} (ID: {report.id})")
             
-            # Render PDF using the correct method signature
-            pdf_content, __ = report._render_qweb_pdf(res_ids=[self.id])
+            # Use _render_qweb_pdf with proper signature: (report_ref, res_ids)
+            # Pass the report's xml_id or report_name as report_ref
+            pdf_content, __ = report._render_qweb_pdf(report.report_name, res_ids=[self.id])
             
             if not pdf_content:
                 raise UserError(_("Odoo failed to generate the quotation PDF. Please check your report configuration."))
