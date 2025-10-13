@@ -46,6 +46,18 @@ class NgsignSignerWizard(models.TransientModel):
         compute='_compute_previous_signature'
     )
 
+    @api.model
+    def default_get(self, fields_list):
+        """Set default template when wizard opens."""
+        res = super().default_get(fields_list)
+        
+        if 'template_id' in fields_list and not res.get('template_id'):
+            default_template = self.env['ngsign.signature.template'].get_default_template()
+            if default_template:
+                res['template_id'] = default_template.id
+        
+        return res
+
     @api.depends('sale_order_id')
     def _compute_previous_signature(self):
         """Check if this order was already sent for signature."""
@@ -95,10 +107,6 @@ class NgsignSignerWizard(models.TransientModel):
         if not self.signer_email:
             raise UserError(_("Email is required to send for signature."))
             
-        # ====================================================================
-        # FIX 1: Add validation for the template directly in the wizard.
-        # This provides a better user experience by catching the error earlier.
-        # ====================================================================
         if not self.template_id:
             raise UserError(_("Please select a signature template."))
         
@@ -117,10 +125,6 @@ class NgsignSignerWizard(models.TransientModel):
             'phone': self.signer_phone or '',
         }
         
-        # ====================================================================
-        # FIX 2: Pass the template_id to the sale_order's method.
-        # This ensures the next method knows which template to use.
-        # ====================================================================
         return self.sale_order_id.action_send_with_ngsign(
             signer_info=signer_info, 
             template_id=self.template_id.id

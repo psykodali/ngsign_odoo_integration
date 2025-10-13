@@ -11,6 +11,10 @@ class NgsignSignatureTemplate(models.Model):
     name = fields.Char(string='Template Name', required=True)
     sequence = fields.Integer(string='Sequence', default=10)
     active = fields.Boolean(string='Active', default=True)
+    is_default = fields.Boolean(
+        string='Default Template',
+        help='If checked, this template will be pre-selected when sending documents for signature'
+    )
     
     # Signature position
     x_axis = fields.Integer(
@@ -65,6 +69,22 @@ class NgsignSignatureTemplate(models.Model):
             if template.x_axis < 0 or template.y_axis < 0:
                 raise ValidationError(_('Coordinates must be non-negative values.'))
 
+    @api.constrains('is_default')
+    def _check_single_default(self):
+        """Ensure only one template is marked as default per company."""
+        for template in self:
+            if template.is_default:
+                other_defaults = self.search([
+                    ('is_default', '=', True),
+                    ('id', '!=', template.id),
+                    ('company_id', '=', template.company_id.id if template.company_id else False)
+                ])
+                if other_defaults:
+                    raise ValidationError(_(
+                        'Only one template can be marked as default. '
+                        'Please uncheck the default option on "%s" first.'
+                    ) % other_defaults[0].name)
+
     def get_page_number(self, total_pages):
         """
         Get the actual page number based on template configuration.
@@ -77,3 +97,29 @@ class NgsignSignatureTemplate(models.Model):
             return total_pages
         else:
             return min(self.page_number, total_pages)  # Don't exceed total pages
+
+    @api.model
+    def get_default_template(self):
+        """
+        Get the default signature template.
+        Priority: 1) Template marked as default, 2) System setting, 3) First active template
+        """
+        # First, try to find a template marked as default for current company
+        default_template = self.search([
+            ('is_default', '=', True),
+            ('active', '=', True),
+            ('company_id', 'in', [self.env.company.id, False])
+        ], limit=1)
+        
+        if default_template:
+            return default_template
+        
+        # Second, check system setting
+        default_id = self.env['ir.config_parameter'].sudo().get_param('ngsign_integration.default_template_id')
+        if default_id:
+            template = self.browse(int(default_id))
+            if template.exists() and template.active:
+                return template
+        
+        # Finally, return first active template
+        return self.search([('active', '=', True)], limit=1)
