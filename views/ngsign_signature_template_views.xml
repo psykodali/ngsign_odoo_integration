@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Template Tree View -->
+        <record id="view_ngsign_signature_template_tree" model="ir.ui.view">
+            <field name="name">ngsign.signature.template.tree</field>
+            <field name="model">ngsign.signature.template</field>
+            <field name="arch" type="xml">
+                <tree string="Signature Templates">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="page_type"/>
+                    <field name="page_number" optional="hide"/>
+                    <field name="x_axis"/>
+                    <field name="y_axis"/>
+                    <field name="signature_type"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Template Form View -->
+        <record id="view_ngsign_signature_template_form" model="ir.ui.view">
+            <field name="name">ngsign.signature.template.form</field>
+            <field name="model">ngsign.signature.template</field>
+            <field name="arch" type="xml">
+                <form string="Signature Template">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name" placeholder="e.g. Bottom Right"/>
+                                <field name="active" invisible="1"/>
+                                <field name="signature_type"/>
+                            </group>
+                            <group>
+                                <field name="sequence"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                        
+                        <group string="Signature Position">
+                            <group>
+                                <field name="page_type" widget="radio"/>
+                                <field name="page_number" invisible="page_type == 'last'" required="page_type == 'specific'"/>
+                            </group>
+                            <group>
+                                <label for="x_axis" string="Coordinates"/>
+                                <div class="o_row">
+                                    <field name="x_axis" class="oe_inline"/> 
+                                    <span class="px-2">,</span>
+                                    <field name="y_axis" class="oe_inline"/>
+                                </div>
+                                <div class="text-muted">
+                                    X (horizontal), Y (vertical) position on the page
+                                </div>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Template Action -->
+        <record id="action_ngsign_signature_template" model="ir.actions.act_window">
+            <field name="name">Signature Templates</field>
+            <field name="res_model">ngsign.signature.template</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first signature template
+                </p>
+                <p>
+                    Define where signatures should be placed on your documents.
+                </p>
+            </field>
+        </record>
+
+        <!-- Menu Item in Settings -->
+        <menuitem id="menu_ngsign_root"
+                  name="NGSIGN"
+                  parent="base.menu_administration"
+                  sequence="100"/>
+                  
+        <menuitem id="menu_ngsign_signature_template"
+                  name="Signature Templates"
+                  parent="menu_ngsign_root"
+                  action="action_ngsign_signature_template"
+                  sequence="10"/>
+    </data>
+</odoo>

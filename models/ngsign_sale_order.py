@@ -72,15 +72,23 @@ class SaleOrder(models.Model):
                     self.name = data.get('name')
                     self.email = data.get('email')
                     self.phone = data.get('phone')
+                    self.template = data.get('template')
             signer = SignerObj(signer_info)
+            template = signer.template
         else:
             signer = signer_partner or self.partner_id
+            # Get default template if not specified
+            template = self.env['ngsign.signature.template'].search([('active', '=', True)], limit=1)
+            if not template:
+                raise UserError(_("No active signature template found. Please create one in Settings."))
 
         # --- Validations ---
         if not signer.email:
             raise UserError(_("Signer email is required to send the document for signature."))
         if not signer.name:
             raise UserError(_("Signer name is required to send the document for signature."))
+        if not template:
+            raise UserError(_("Please select a signature template."))
         if not PyPDF2:
             raise UserError(_("The required library PyPDF2 is not installed. Please install it by running 'pip install PyPDF2'."))
 

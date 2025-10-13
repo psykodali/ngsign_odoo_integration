@@ -34,6 +34,15 @@
                                                class="col-10"
                                                placeholder="Enter your bearer token"/>
                                     </div>
+                                    <div class="row mt16">
+                                        <div class="col-12">
+                                            <button name="%(action_ngsign_signature_template)d" 
+                                                    type="action" 
+                                                    string="Configure Signature Templates" 
+                                                    icon="fa-pencil-square-o"
+                                                    class="btn-link"/>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

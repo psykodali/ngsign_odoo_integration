@@ -51,6 +51,12 @@
                             </group>
                         </group>
                         
+                        <group string="Signature Configuration" invisible="not signer_id">
+                            <field name="template_id" 
+                                   options="{'no_create': True, 'no_open': True}"
+                                   placeholder="Select signature placement template..."/>
+                        </group>
+                        
                         <group invisible="not signer_id">
                             <field name="update_contact" 
                                    widget="boolean_toggle"
@@ -67,7 +73,7 @@
                                 name="action_confirm_signer" 
                                 type="object" 
                                 class="btn-primary"
-                                invisible="not signer_id"/>
+                                invisible="has_previous_signature or not signer_id"/>
                         <button string="Resend for Signature" 
                                 name="action_confirm_signer" 
                                 type="object" 

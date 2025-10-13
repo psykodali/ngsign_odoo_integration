@@ -23,6 +23,14 @@ class NgsignSignerWizard(models.TransientModel):
         help="If checked, the contact's email and phone will be updated with the values entered above"
     )
     
+    # Signature template
+    template_id = fields.Many2one(
+        'ngsign.signature.template',
+        string='Signature Template',
+        required=True,
+        domain=[('active', '=', True)]
+    )
+    
     # Previous signature info
     has_previous_signature = fields.Boolean(
         string='Has Previous Signature',
