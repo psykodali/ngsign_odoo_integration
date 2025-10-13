@@ -66,16 +66,20 @@ class SaleOrder(models.Model):
         if not template.exists():
              raise UserError(_("The selected signature template (ID: %s) could not be found.") % template_id)
 
-        # ====================================================================
-        # IMPROVEMENT: Add a check to ensure the report exists before trying to use it.
-        # This will provide a more user-friendly error message.
-        # ====================================================================
-        report_action = self.env['ir.actions.report']._get_report_from_name('sale.action_report_saleorder')
+        # --- PDF Generation (Robust Method) ---
+        # Find the specific report action associated with the sale.order model.
+        # This avoids issues with hard-coded names and module customizations.
+        report_action = self.env['ir.actions.report']._get_action_for_model_name('sale.order')
         if not report_action:
-            raise UserError(_("The standard Sales Order report ('sale.action_report_saleorder') could not be found. Please try upgrading the 'Sales' module from the Apps menu."))
+            raise UserError(_("No default report action is configured for Sales Orders in your system. Please check your configuration in Settings -> Technical -> Reports."))
 
-        pdf_content, __ = report_action._render_qweb_pdf(self.id)
-        
+        # The result is a dictionary, we need the actual record
+        report_record = self.env['ir.actions.report'].browse(report_action.get('id'))
+        if not report_record.exists():
+            raise UserError(_("The report action for Sales Orders could not be found. It may have been deleted."))
+
+        pdf_content, __ = report_record._render_qweb_pdf(self.id)
+                
         if not pdf_content:
             raise UserError(_("Odoo failed to generate the quotation PDF. Please check your report configuration."))
 
