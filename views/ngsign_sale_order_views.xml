@@ -11,12 +11,14 @@
                     <button name="action_send_with_ngsign" 
                             string="Send with NGSIGN" 
                             type="object" 
-                            class="btn-primary"
+                            icon="fa-pencil-square-o"
+                            style="background-color: #ffcc00; color: #000000; font-weight: 500;"
                             invisible="state not in ['draft', 'sent'] or ngsign_transaction_uuid"/>
                     <button name="action_send_with_ngsign" 
                             string="Resend with NGSIGN" 
                             type="object" 
-                            class="btn-warning"
+                            icon="fa-pencil-square-o"
+                            style="background-color: #ffcc00; color: #000000; font-weight: 500;"
                             invisible="state not in ['draft', 'sent'] or not ngsign_transaction_uuid"/>
                 </xpath>
                 
