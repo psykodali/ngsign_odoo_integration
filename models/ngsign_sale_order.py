@@ -20,7 +20,6 @@ class SaleOrder(models.Model):
 
     def _get_api_credentials(self):
         get_param = self.env['ir.config_parameter'].sudo().get_param
-        # --- FIX: Corrected parameter names to match res_config_settings.py ---
         api_url = get_param('ngsign_integration.api_url')
         bearer_token = get_param('ngsign_integration.bearer_token')
         if not api_url or not bearer_token:
@@ -56,15 +55,19 @@ class SaleOrder(models.Model):
         if not template.exists():
              raise UserError(_("The selected signature template (ID: %s) could not be found.") % template_id)
 
-        # --- PDF Generation (Final, Specific Method) ---
-        report_action = self.env['ir.actions.report'].search([
-            ('model', '=', 'sale.order'),
-            ('report_name', '=', 'sale.report_saleorder'),
-            ('report_type', '=', 'qweb-pdf'),
-        ], limit=1)
+        # --- PDF Generation (Definitive Binding Method) ---
+        report_action = self.env.ref('sale.action_report_saleorder', raise_if_not_found=False)
+        if not report_action or not report_action.exists():
+            # Fallback for heavily customized systems where the original XML ID is gone
+            bound_actions = self.env['ir.actions.report'].search([
+                ('model', '=', 'sale.order'),
+                ('binding_model_id.model', '=', 'sale.order'),
+                ('report_type', '=', 'qweb-pdf')
+            ], limit=1)
+            report_action = bound_actions
 
         if not report_action:
-            raise UserError(_("The standard Odoo Sales Order PDF report (sale.report_saleorder) could not be found. Please ensure the Sales module is correctly installed."))
+            raise UserError(_("Could not find a valid, printable report action for Sales Orders. Please check the configuration under Settings -> Technical -> Reports -> Print Menu."))
 
         pdf_content, __ = report_action._render_qweb_pdf(self.id)
 
@@ -79,7 +82,7 @@ class SaleOrder(models.Model):
                 page_to_sign = len(reader.pages)
             except Exception as e:
                 raise UserError(_("Could not determine the last page of the PDF. Error: %s") % e)
-        else: # Covers 'specific' and potential future types
+        else:
             page_to_sign = template.page_number
             if page_to_sign <= 0:
                 raise UserError(_("The template specifies an invalid page number: %s.") % page_to_sign)
