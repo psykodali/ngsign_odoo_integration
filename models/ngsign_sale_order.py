@@ -20,8 +20,9 @@ class SaleOrder(models.Model):
 
     def _get_api_credentials(self):
         get_param = self.env['ir.config_parameter'].sudo().get_param
-        api_url = get_param('ngsign.ngsign_url')
-        bearer_token = get_param('ngsign.ngsign_bearer_token')
+        # --- FIX: Corrected parameter names to match res_config_settings.py ---
+        api_url = get_param('ngsign_integration.api_url')
+        bearer_token = get_param('ngsign_integration.bearer_token')
         if not api_url or not bearer_token:
             raise UserError(_('NGSIGN API URL and Bearer Token must be configured in settings.'))
         return api_url, bearer_token
@@ -71,19 +72,17 @@ class SaleOrder(models.Model):
             raise UserError(_("Odoo failed to generate the quotation PDF. Please check your report configuration."))
 
         page_to_sign = 0
-        if template.page_type == 'first':
-            page_to_sign = 1
-        elif template.page_type == 'specific':
-            page_to_sign = template.page_number
-            if page_to_sign <= 0:
-                raise UserError(_("The template specifies an invalid page number: %s.") % page_to_sign)
-        elif template.page_type == 'last':
+        if template.page_type == 'last':
             try:
                 pdf_stream = io.BytesIO(pdf_content)
                 reader = PyPDF2.PdfReader(pdf_stream)
                 page_to_sign = len(reader.pages)
             except Exception as e:
                 raise UserError(_("Could not determine the last page of the PDF. Error: %s") % e)
+        else: # Covers 'specific' and potential future types
+            page_to_sign = template.page_number
+            if page_to_sign <= 0:
+                raise UserError(_("The template specifies an invalid page number: %s.") % page_to_sign)
         
         if page_to_sign == 0:
             raise UserError(_("Could not determine the page for the signature based on the template settings."))
