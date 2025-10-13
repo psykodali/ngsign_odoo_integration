@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!-- Add custom CSS for NGSIGN buttons -->
+        <template id="assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <style>
+                    .btn-ngsign {
+                        background-color: #ffcc00 !important;
+                        color: #000000 !important;
+                        border-color: #ffcc00 !important;
+                        font-weight: 500 !important;
+                    }
+                    .btn-ngsign:hover {
+                        background-color: #e6b800 !important;
+                        color: #000000 !important;
+                        border-color: #e6b800 !important;
+                    }
+                    .btn-ngsign:focus,
+                    .btn-ngsign:active {
+                        background-color: #ccaa00 !important;
+                        color: #000000 !important;
+                        border-color: #ccaa00 !important;
+                    }
+                </style>
+            </xpath>
+        </template>
+
         <record id="view_order_form_inherit_ngsign" model="ir.ui.view">
             <field name="name">sale.order.form.inherit.ngsign</field>
             <field name="model">sale.order</field>
@@ -12,13 +37,13 @@
                             string="Send with NGSIGN" 
                             type="object" 
                             icon="fa-pencil-square-o"
-                            style="background-color: #ffcc00; color: #000000; font-weight: 500;"
+                            class="btn-ngsign"
                             invisible="state not in ['draft', 'sent'] or ngsign_transaction_uuid"/>
                     <button name="action_send_with_ngsign" 
                             string="Resend with NGSIGN" 
                             type="object" 
                             icon="fa-pencil-square-o"
-                            style="background-color: #ffcc00; color: #000000; font-weight: 500;"
+                            class="btn-ngsign"
                             invisible="state not in ['draft', 'sent'] or not ngsign_transaction_uuid"/>
                 </xpath>
                 
