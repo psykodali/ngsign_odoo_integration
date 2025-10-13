@@ -24,14 +24,21 @@ class SaleOrder(models.Model):
 
     def _get_api_credentials(self):
         get_param = self.env['ir.config_parameter'].sudo().get_param
-        api_url = get_param('ngsign_integration.api_url')
+        base_url = get_param('ngsign_integration.api_url')
         bearer_token = get_param('ngsign_integration.bearer_token')
         
-        _logger.info(f"API URL configured: {bool(api_url)}")
+        _logger.info(f"API URL configured: {bool(base_url)}")
         _logger.info(f"Bearer token configured: {bool(bearer_token)}")
         
-        if not api_url or not bearer_token:
+        if not base_url or not bearer_token:
             raise UserError(_('NGSIGN API URL and Bearer Token must be configured in settings.'))
+        
+        # Remove trailing slash if present
+        base_url = base_url.rstrip('/')
+        
+        # Build the full API URL
+        api_url = f"{base_url}/server/protected/transaction"
+        
         return api_url, bearer_token
 
     def action_send_with_ngsign(self, signer_info=None, template_id=None):

@@ -5,8 +5,9 @@ class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
     ngsign_url = fields.Char(
-        string="NGSIGN API URL",
-        config_parameter='ngsign_integration.api_url'
+        string="NGSIGN Base URL",
+        config_parameter='ngsign_integration.api_url',
+        help="Base URL for NGSIGN API (e.g., https://sandbox.ng-sign.com)"
     )
     ngsign_bearer_token = fields.Char(
         string="NGSIGN Bearer Token",
