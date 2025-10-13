@@ -23,11 +23,12 @@
                                 <div class="content-group mt16">
                                     <div class="row mt8">
                                         <label for="ngsign_url" string="Base URL" class="col-2 o_light_label"/>
+                                        <i class="fa fa-info-circle"/> Enter only the base URL (e.g., https://sandbox.ng-sign.com). The API endpoint path will be added automatically.
+
                                         <field name="ngsign_url" 
                                                class="col-10"
                                                placeholder="https://sandbox.ng-sign.com"/>
                                         <div class="col-12 text-muted small mt-1">
-                                            <i class="fa fa-info-circle"/> Enter only the base URL (e.g., https://sandbox.ng-sign.com). The API endpoint path will be added automatically.
                                         </div>
                                     </div>
                                     <div class="row">

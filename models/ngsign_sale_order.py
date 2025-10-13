@@ -21,6 +21,20 @@ class SaleOrder(models.Model):
 
     ngsign_transaction_uuid = fields.Char(string='NGSIGN Transaction UUID', readonly=True, copy=False)
     ngsign_signature_url = fields.Char(string='NGSIGN Signature URL', readonly=True, copy=False)
+    ngsign_signature_status = fields.Selection([
+        ('draft', 'Draft'),
+        ('sent', 'Sent for Signature'),
+        ('signed', 'Signed'),
+        ('expired', 'Expired'),
+        ('cancelled', 'Cancelled'),
+    ], string='Signature Status', readonly=True, copy=False, default='draft')
+    ngsign_signed_document_id = fields.Many2one(
+        'ir.attachment',
+        string='Signed Document',
+        readonly=True,
+        copy=False,
+        help='The signed PDF document downloaded from NGSIGN'
+    )
 
     def _get_api_credentials(self):
         get_param = self.env['ir.config_parameter'].sudo().get_param
@@ -36,10 +50,15 @@ class SaleOrder(models.Model):
         # Remove trailing slash if present
         base_url = base_url.rstrip('/')
         
-        # Build the full API URL
-        api_url = f"{base_url}/server/protected/transaction"
-        
-        return api_url, bearer_token
+        return base_url, bearer_token
+
+    def _get_transaction_api_url(self, base_url):
+        """Build the transaction API URL."""
+        return f"{base_url}/server/protected/transaction"
+    
+    def _get_public_api_url(self, base_url):
+        """Build the public API URL (no auth required)."""
+        return f"{base_url}/server/any/transaction"
 
     def action_send_with_ngsign(self, signer_info=None, template_id=None):
         self.ensure_one()
@@ -143,6 +162,7 @@ class SaleOrder(models.Model):
         _logger.info(f"Signer: {first_name} {last_name} ({signer_info.get('email')})")
         
         api_url, bearer_token = self._get_api_credentials()
+        api_url = self._get_transaction_api_url(api_url)
         headers = {'Authorization': f'Bearer {bearer_token}', 'Content-Type': 'application/json'}
         file_name = f"{self.name}.pdf"
 
@@ -197,7 +217,7 @@ class SaleOrder(models.Model):
                 first_signer_data = launch_data['object']['signers'][0]
                 signature_url = first_signer_data.get('signatureUrl') or first_signer_data.get('url')
 
-            self.write({'ngsign_transaction_uuid': transaction_uuid, 'ngsign_signature_url': signature_url})
+            self.write({'ngsign_transaction_uuid': transaction_uuid, 'ngsign_signature_url': signature_url, 'ngsign_signature_status': 'sent'})
             
             message_body = _('Document sent to <b>%s</b> (%s) for signature via NGSIGN.') % (signer_info.get('name'), signer_info.get('email'))
             self.message_post(body=message_body)
@@ -231,3 +251,128 @@ class SaleOrder(models.Model):
             raise UserError(_('An unexpected error occurred: %s') % str(e))
 
         return True
+
+    def action_check_signature_status(self):
+        """Manually check signature status and download signed document if available."""
+        self.ensure_one()
+        
+        if not self.ngsign_transaction_uuid:
+            raise UserError(_('No signature transaction found for this order.'))
+        
+        return self._check_and_download_signed_document()
+
+    def _check_and_download_signed_document(self):
+        """Check if document is signed and download it."""
+        self.ensure_one()
+        
+        if not self.ngsign_transaction_uuid:
+            return False
+        
+        # If already downloaded, skip
+        if self.ngsign_signed_document_id:
+            _logger.info(f"Signed document already downloaded for SO: {self.name}")
+            return True
+        
+        try:
+            base_url, bearer_token = self._get_api_credentials()
+            public_api_url = self._get_public_api_url(base_url)
+            
+            # Check transaction status (public endpoint, no auth needed)
+            status_url = f"{public_api_url}/{self.ngsign_transaction_uuid}"
+            _logger.info(f"Checking signature status at: {status_url}")
+            
+            status_response = requests.get(status_url, timeout=30)
+            status_response.raise_for_status()
+            status_data = status_response.json()
+            
+            if status_data.get('errorCode', 0) != 0:
+                _logger.warning(f"Error checking status: {status_data.get('message')}")
+                return False
+            
+            transaction_status = status_data.get('object', {}).get('status')
+            _logger.info(f"Transaction status: {transaction_status}")
+            
+            # Update status field
+            status_mapping = {
+                'CONFIGURED': 'sent',
+                'SIGNED': 'signed',
+                'EXPIRED': 'expired',
+                'CANCELLED': 'cancelled',
+            }
+            
+            new_status = status_mapping.get(transaction_status, 'sent')
+            if self.ngsign_signature_status != new_status:
+                self.ngsign_signature_status = new_status
+                _logger.info(f"Updated signature status to: {new_status}")
+            
+            # If signed, download the document
+            if transaction_status == 'SIGNED':
+                pdfs = status_data.get('object', {}).get('pdfs', [])
+                if not pdfs:
+                    _logger.warning("No PDFs found in signed transaction")
+                    return False
+                
+                # Get the first PDF identifier
+                document_uuid = pdfs[0].get('identifier')
+                document_name = pdfs[0].get('name', self.name)
+                
+                if not document_uuid:
+                    _logger.warning("No document identifier found")
+                    return False
+                
+                # Download the signed document (public endpoint, no auth)
+                download_url = f"{public_api_url}/{self.ngsign_transaction_uuid}/pdfs/{document_uuid}"
+                _logger.info(f"Downloading signed document from: {download_url}")
+                
+                download_response = requests.get(download_url, timeout=60)
+                download_response.raise_for_status()
+                
+                # Create attachment
+                attachment = self.env['ir.attachment'].create({
+                    'name': f'{document_name}_signed.pdf',
+                    'type': 'binary',
+                    'datas': base64.b64encode(download_response.content).decode('utf-8'),
+                    'res_model': 'sale.order',
+                    'res_id': self.id,
+                    'mimetype': 'application/pdf',
+                })
+                
+                self.ngsign_signed_document_id = attachment.id
+                
+                # Post message in chatter
+                self.message_post(
+                    body=_('✅ Signed document has been downloaded and attached.'),
+                    attachment_ids=[attachment.id]
+                )
+                
+                _logger.info(f"Successfully downloaded and attached signed document for SO: {self.name}")
+                return True
+            
+            return False
+            
+        except requests.exceptions.HTTPError as e:
+            _logger.error(f"HTTP Error checking signature: {e.response.status_code}", exc_info=True)
+            return False
+        except requests.exceptions.RequestException as e:
+            _logger.error(f"Request error checking signature: {str(e)}", exc_info=True)
+            return False
+        except Exception as e:
+            _logger.error(f"Unexpected error checking signature: {str(e)}", exc_info=True)
+            return False
+
+    def read(self, fields=None, load='_classic_read'):
+        """Override read to check signature status when order is opened."""
+        result = super(SaleOrder, self).read(fields=fields, load=load)
+        
+        # Check signature status for orders with pending signatures
+        for record_data in result:
+            if record_data.get('ngsign_transaction_uuid') and not record_data.get('ngsign_signed_document_id'):
+                # Get the record to call the check method
+                record = self.browse(record_data['id'])
+                # Run in background to avoid blocking the UI
+                try:
+                    record._check_and_download_signed_document()
+                except Exception as e:
+                    _logger.warning(f"Failed to check signature status for SO {record.name}: {str(e)}")
+        
+        return result

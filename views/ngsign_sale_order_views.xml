@@ -6,24 +6,61 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
-                <!-- Add the button to the header -->
+                <!-- Add the buttons to the header -->
                 <xpath expr="//header" position="inside">
+                    <!-- Send button (when no transaction exists) -->
                     <button name="action_send_with_ngsign" 
                             string="Send with NGSIGN" 
                             type="object" 
                             icon="fa-pencil-square-o"
                             invisible="state not in ['draft', 'sent'] or ngsign_transaction_uuid"/>
+                    
+                    <!-- Resend button (when transaction exists but not signed) -->
                     <button name="action_send_with_ngsign" 
                             string="Resend with NGSIGN" 
                             type="object" 
                             icon="fa-pencil-square-o"
-                            invisible="state not in ['draft', 'sent'] or not ngsign_transaction_uuid"/>
+                            class="btn-warning"
+                            invisible="state not in ['draft', 'sent'] or not ngsign_transaction_uuid or ngsign_signature_status == 'signed'"/>
+                    
+                    <!-- Check status button -->
+                    <button name="action_check_signature_status" 
+                            string="Check Signature Status" 
+                            type="object" 
+                            icon="fa-refresh"
+                            invisible="not ngsign_transaction_uuid or ngsign_signature_status == 'signed'"/>
+                </xpath>
+                
+                <!-- Add status badge -->
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <widget name="web_ribbon" 
+                            title="Signed" 
+                            bg_color="text-bg-success" 
+                            invisible="ngsign_signature_status != 'signed'"/>
+                    <widget name="web_ribbon" 
+                            title="Sent for Signature" 
+                            bg_color="text-bg-info" 
+                            invisible="ngsign_signature_status != 'sent'"/>
                 </xpath>
                 
                 <!-- Add fields to display transaction info on the form -->
                 <xpath expr="//field[@name='partner_id']" position="after">
-                    <field name="ngsign_transaction_uuid" readonly="1" invisible="not ngsign_transaction_uuid"/>
-                    <field name="ngsign_signature_url" widget="url" readonly="1" invisible="not ngsign_signature_url"/>
+                    <field name="ngsign_signature_status" 
+                           invisible="not ngsign_transaction_uuid"
+                           widget="badge"
+                           decoration-success="ngsign_signature_status == 'signed'"
+                           decoration-info="ngsign_signature_status == 'sent'"
+                           decoration-warning="ngsign_signature_status in ['expired', 'cancelled']"/>
+                    <field name="ngsign_transaction_uuid" 
+                           readonly="1" 
+                           invisible="not ngsign_transaction_uuid"/>
+                    <field name="ngsign_signature_url" 
+                           widget="url" 
+                           readonly="1" 
+                           invisible="not ngsign_signature_url"/>
+                    <field name="ngsign_signed_document_id" 
+                           readonly="1" 
+                           invisible="not ngsign_signed_document_id"/>
                 </xpath>
             </field>
         </record>
