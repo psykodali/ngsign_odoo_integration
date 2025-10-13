@@ -31,18 +31,6 @@
                             invisible="not ngsign_transaction_uuid or ngsign_signature_status == 'signed'"/>
                 </xpath>
                 
-                <!-- Add status badge -->
-                <xpath expr="//div[@name='button_box']" position="inside">
-                    <widget name="web_ribbon" 
-                            title="Signed" 
-                            bg_color="text-bg-success" 
-                            invisible="ngsign_signature_status != 'signed'"/>
-                    <widget name="web_ribbon" 
-                            title="Sent for Signature" 
-                            bg_color="text-bg-info" 
-                            invisible="ngsign_signature_status != 'sent'"/>
-                </xpath>
-                
                 <!-- Add fields to display transaction info on the form -->
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="ngsign_signature_status" 
