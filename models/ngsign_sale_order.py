@@ -38,11 +38,6 @@ class SaleOrder(models.Model):
         return api_url, bearer_token
 
     def action_send_with_ngsign(self, signer_info=None, template_id=None):
-        """
-        Initiates the NGSIGN process.
-        - If called without arguments, it opens the signer selection wizard.
-        - If called with signer_info and template_id, it processes the signature request.
-        """
         self.ensure_one()
 
         if not signer_info:
@@ -71,16 +66,18 @@ class SaleOrder(models.Model):
         if not template.exists():
              raise UserError(_("The selected signature template (ID: %s) could not be found.") % template_id)
 
+        # ====================================================================
+        # IMPROVEMENT: Add a check to ensure the report exists before trying to use it.
+        # This will provide a more user-friendly error message.
+        # ====================================================================
         report_action = self.env['ir.actions.report']._get_report_from_name('sale.action_report_saleorder')
-        
-        # ====================================================================
-        # FIX: Changed the throwaway variable from `_` to `__` to avoid
-        # conflict with the translation function `_`.
-        # ====================================================================
+        if not report_action:
+            raise UserError(_("The standard Sales Order report ('sale.action_report_saleorder') could not be found. Please try upgrading the 'Sales' module from the Apps menu."))
+
         pdf_content, __ = report_action._render_qweb_pdf(self.id)
         
         if not pdf_content:
-            raise UserError(_("Could not generate the quotation PDF. Please check your report configuration."))
+            raise UserError(_("Odoo failed to generate the quotation PDF. Please check your report configuration."))
 
         page_to_sign = 0
         if template.page_type == 'first':
