@@ -52,7 +52,19 @@ class NgsignSignerWizard(models.TransientModel):
         res = super().default_get(fields_list)
         
         if 'template_id' in fields_list and not res.get('template_id'):
-            default_template = self.env['ngsign.signature.template'].get_default_template()
+            # Find template marked as default
+            default_template = self.env['ngsign.signature.template'].search([
+                ('is_default', '=', True),
+                ('active', '=', True),
+                ('company_id', 'in', [self.env.company.id, False])
+            ], limit=1)
+            
+            # If no default found, use first active template
+            if not default_template:
+                default_template = self.env['ngsign.signature.template'].search([
+                    ('active', '=', True)
+                ], limit=1)
+            
             if default_template:
                 res['template_id'] = default_template.id
         
