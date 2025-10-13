@@ -67,7 +67,7 @@
         <record id="action_ngsign_signature_template" model="ir.actions.act_window">
             <field name="name">Signature Templates</field>
             <field name="res_model">ngsign.signature.template</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
                     Create your first signature template
