@@ -95,8 +95,8 @@ class SaleOrder(models.Model):
 
             _logger.info(f"Using report: {report.name} (ID: {report.id})")
             
-            # Render PDF - pass list of IDs
-            pdf_content, __ = report._render_qweb_pdf([self.id])
+            # Render PDF using the correct method signature
+            pdf_content, __ = report._render_qweb_pdf(res_ids=[self.id])
             
             if not pdf_content:
                 raise UserError(_("Odoo failed to generate the quotation PDF. Please check your report configuration."))
