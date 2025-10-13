@@ -74,24 +74,29 @@ class SaleOrder(models.Model):
 
         # --- PDF Generation ---
         try:
-            _logger.info("Attempting to find report action")
-            report_action = self.env.ref('sale.action_report_saleorder', raise_if_not_found=False)
+            _logger.info("Attempting to generate PDF for sale order")
             
-            if not report_action or not report_action.exists():
-                _logger.warning("Standard report not found, searching for alternatives")
-                bound_actions = self.env['ir.actions.report'].search([
+            # Method 1: Try to get the default quotation report
+            report = self.env['ir.actions.report']._get_report_from_name('sale.report_saleorder')
+            
+            if not report:
+                _logger.warning("Standard report not found via report_name, trying by external ID")
+                report = self.env.ref('sale.action_report_saleorder', raise_if_not_found=False)
+            
+            if not report or not report.exists():
+                _logger.warning("Standard report still not found, searching for any sale.order PDF report")
+                report = self.env['ir.actions.report'].search([
                     ('model', '=', 'sale.order'),
-                    ('binding_model_id.model', '=', 'sale.order'),
                     ('report_type', '=', 'qweb-pdf')
                 ], limit=1)
-                report_action = bound_actions
 
-            if not report_action:
-                raise UserError(_("Could not find a valid, printable report action for Sales Orders. Please check the configuration under Settings → Technical → Reports → Print Menu."))
+            if not report or not report.exists():
+                raise UserError(_("Could not find a valid PDF report for Sales Orders. Please check your report configuration."))
 
-            _logger.info(f"Using report: {report_action.name if hasattr(report_action, 'name') else 'Unknown'}")
+            _logger.info(f"Using report: {report.name} (ID: {report.id})")
             
-            pdf_content, __ = report_action._render_qweb_pdf(self.id)
+            # Render PDF - pass list of IDs
+            pdf_content, __ = report._render_qweb_pdf([self.id])
             
             if not pdf_content:
                 raise UserError(_("Odoo failed to generate the quotation PDF. Please check your report configuration."))
