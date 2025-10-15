@@ -151,13 +151,13 @@ Once signed, the document is automatically:
 ## 📸 Screenshots
 
 ### Send for Signature Wizard
-![Wizard Screenshot](docs/images/wizard.png)
+TODO
 
 ### Signature Templates Management
-![Templates Screenshot](docs/images/templates.png)
+TODO
 
 ### Sales Order with Signature Status
-![Status Screenshot](docs/images/status.png)
+TODO
 
 ## 🔧 Technical Details
 
