@@ -1,135 +1,248 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>NGSIGN Integration for Odoo</title>
-  </head>
-  <body>
-    <h2>NGSIGN Integration for Odoo</h2>
-    <p>
-      Streamline your sales process with secure, legally compliant electronic
-      signatures. The <strong>NGSIGN Integration</strong> module connects Odoo
-      directly with the NGSIGN platform, enabling you to send quotations and
-      sales orders for digital signing with a single click.
-    </p>
+<section class="oe_container">
+  <h1>🖋️ NGSIGN Integration for Odoo</h1>
+  <p>
+    <strong>License:</strong> LGPL-3 &nbsp; | &nbsp;
+    <strong>Odoo Version:</strong> 18.0 &nbsp; | &nbsp;
+    <strong>Python Version:</strong> 3.10+
+  </p>
 
-    <h3>Key Benefits</h3>
-    <ul>
-      <li>
-        Eliminate printing, scanning, and manual signatures — go 100% digital.
-      </li>
-      <li>
-        Send, track, and retrieve signed documents directly from your Odoo
-        interface.
-      </li>
-      <li>
-        Ensure legally binding, timestamped signatures compliant with
-        international standards.
-      </li>
-    </ul>
+  <p>
+    Professional electronic signature integration for Odoo Sales, powered by the
+    <strong>NGSIGN</strong> platform.
+  </p>
 
-    <div
-      style="
-        background: #fffbf0;
-        border-left: 3px solid #ffcc00;
-        padding: 15px 20px;
-        border-radius: 4px;
-        margin: 20px 0;
-      "
-    >
-      <strong>Ideal for:</strong> B2B sales, legal firms, real estate,
-      consulting, and any business that requires secure and fast customer
-      signatures.
-    </div>
+  <h2>📋 Overview</h2>
+  <p>
+    Transform your sales workflow with secure, legally-compliant electronic
+    signatures. This module seamlessly integrates the
+    <strong>NGSIGN electronic signature platform</strong> directly into Odoo,
+    enabling you to send quotations and sales orders for digital signing with
+    just one click.
+  </p>
+  <p>
+    Perfect for businesses that need to collect signatures from customers
+    quickly and securely, whether they're individuals or companies with multiple
+    contacts.
+  </p>
 
-    <h3>Main Features</h3>
-    <ul>
-      <li>
-        <strong>⚡ One-click sending:</strong> Generate and send sales orders
-        for signature instantly.
-      </li>
-      <li>
-        <strong>👥 Smart contact selection:</strong> Automatically choose the
-        right contact to sign documents.
-      </li>
-      <li>
-        <strong>✏️ Inline editing:</strong> Update contact information before
-        sending for signature.
-      </li>
-      <li>
-        <strong>📋 Flexible templates:</strong> Define custom signature
-        positions, pages, and types.
-      </li>
-      <li>
-        <strong>📊 Real-time tracking:</strong> Monitor signature status
-        directly from the sales order view.
-      </li>
-      <li>
-        <strong>📥 Automatic attachment:</strong> Signed PDFs are automatically
-        downloaded and attached.
-      </li>
-      <li>
-        <strong>🔒 Secure & compliant:</strong> Uses certified timestamps and
-        advanced electronic signature methods.
-      </li>
-    </ul>
+  <h2>✨ Key Features</h2>
+  <ul>
+    <li>
+      <strong>🚀 One-Click Signature Requests:</strong> Send sales orders for
+      signature directly from Odoo — no PDF exports or external tools.
+    </li>
+    <li>
+      <strong>👥 Smart Contact Management:</strong> Choose specific company
+      contacts to sign via an intuitive wizard.
+    </li>
+    <li>
+      <strong>✏️ Inline Information Editing:</strong> Update signer email and
+      phone numbers on the fly.
+    </li>
+    <li>
+      <strong>📝 Flexible Signature Templates:</strong>
+      <ul>
+        <li>Define exact X/Y signature coordinates</li>
+        <li>Select pages (specific or last)</li>
+        <li>Support for Simple, DigiGO, and Choose Later types</li>
+        <li>Mark templates as default</li>
+      </ul>
+    </li>
+    <li>
+      <strong>🔄 Resend Capability:</strong> Resend requests with full tracking
+      and timestamps.
+    </li>
+    <li>
+      <strong>📊 Complete Tracking & Status:</strong> Real-time monitoring
+      (Draft, Sent, Signed, Expired, Cancelled).
+    </li>
+    <li>
+      <strong>📥 Automatic Document Download:</strong> Signed files
+      automatically attached to Sales Orders.
+    </li>
+    <li>
+      <strong>🔒 Secure & Compliant:</strong> Qualified signature compliant with
+      international e-signature standards.
+    </li>
+  </ul>
 
-    <h3>Signature Templates</h3>
-    <p>
-      Create and manage reusable signature templates to handle different
-      document types and signing scenarios.
-    </p>
-    <ul>
-      <li>Define precise X/Y coordinates for signatures.</li>
-      <li>Choose between “Last Page” or a specific page for placement.</li>
-      <li>
-        Support for multiple signature types: Simple, DigiGO, or Choose Later.
-      </li>
-      <li>Set default templates for faster document preparation.</li>
-    </ul>
+  <h2>📦 Installation</h2>
+  <h3>Prerequisites</h3>
+  <ul>
+    <li>Odoo 18.0+</li>
+    <li>Python 3.10+</li>
+    <li>PyPDF2 library for PDF processing</li>
+  </ul>
 
-    <h3>How It Works</h3>
-    <ol>
-      <li><strong>Configure NGSIGN credentials</strong> in Odoo settings.</li>
-      <li>
-        <strong>Create signature templates</strong> under NGSIGN → Signature
-        Templates.
-      </li>
-      <li>
-        <strong>Send documents for signature</strong> directly from Sales Orders
-        or Quotations.
-      </li>
-      <li>
-        <strong>Track and download</strong> signed documents automatically.
-      </li>
-    </ol>
+  <h3>Installation Steps</h3>
+  <pre>
+pip install PyPDF2
+cd /path/to/odoo/addons
+git clone https://github.com/yourusername/ngsign_integration_v4.git
+  </pre>
+  <p>
+    Restart Odoo, update the Apps list, then install
+    <strong>"NGSIGN Integration"</strong>.
+  </p>
 
-    <h3>Example Workflow</h3>
-    <p>
-      <strong>Scenario:</strong> Sending a sales quotation to a company contact
-      for signature.
-    </p>
-    <ol>
-      <li>Create a quotation in Odoo and click “Send with NGSIGN”.</li>
-      <li>Select the appropriate contact (e.g. Procurement Manager).</li>
-      <li>Confirm the pre-selected template and send for signature.</li>
-      <li>The recipient signs electronically via NGSIGN.</li>
-      <li>The signed PDF is automatically retrieved and attached in Odoo.</li>
-    </ol>
+  <h2>⚙️ Configuration</h2>
+  <ol>
+    <li>
+      <strong>API Credentials Setup:</strong>
+      <ul>
+        <li>Settings → General Settings → NGSIGN Integration</li>
+        <li>
+          Base URL: <code>https://ngsign.app</code> (Production) or
+          <code>https://sandbox.ng-sign.com</code> (Sandbox)
+        </li>
+        <li>Bearer Token: your NGSIGN API key</li>
+      </ul>
+    </li>
+    <li>
+      <strong>Create Signature Templates:</strong>
+      <ul>
+        <li>Settings → NGSIGN → Signature Templates</li>
+        <li>Configure coordinates, page placement, and signature type</li>
+        <li>Mark default templates for quick access</li>
+      </ul>
+    </li>
+  </ol>
 
-    <h3>Advanced Features</h3>
-    <ul>
-      <li>Resend with full visibility of previous signature attempts.</li>
-      <li>Automatic chatter updates and activity tracking.</li>
-      <li>Color-coded signature status badges (Sent, Signed, Expired).</li>
-      <li>Manual or automatic status synchronization.</li>
-      <li>Multi-company support and customizable templates.</li>
-    </ul>
+  <h2>🎯 Usage</h2>
+  <ol>
+    <li>Open a Sales Order (in Draft or Sent state)</li>
+    <li>
+      Click <strong>"Send with NGSIGN"</strong> (yellow button with signature
+      icon)
+    </li>
+    <li>Select the signer, edit contact info if needed</li>
+    <li>Choose a signature template and send</li>
+    <li>
+      Monitor signature status directly on the sales order:
+      <ul>
+        <li>🔵 Sent</li>
+        <li>🟢 Signed</li>
+        <li>🟠 Expired</li>
+        <li>⚫ Cancelled</li>
+      </ul>
+    </li>
+    <li>
+      Signed document automatically attaches to the order and posts in the
+      chatter
+    </li>
+  </ol>
 
-    <p style="margin-top: 20px; font-size: 0.95em; color: #5c5c5c">
-      Simplify your document signing process with
-      <strong>NGSIGN for Odoo</strong> — fast, secure, and fully integrated with
-      your sales workflow.
-    </p>
-  </body>
-</html>
+  <h2>📸 Screenshots</h2>
+  <ul>
+    <li>Send for Signature Wizard – <em>TODO</em></li>
+    <li>Signature Templates Management – <em>TODO</em></li>
+    <li>Sales Order with Signature Status – <em>TODO</em></li>
+  </ul>
+
+  <h2>🔧 Technical Details</h2>
+  <p>
+    <strong>Technical Name:</strong> ngsign_integration_v4<br />
+    <strong>Version:</strong> 18.0.1.0.0<br />
+    <strong>Category:</strong> Digital Signature<br />
+    <strong>License:</strong> LGPL-3<br />
+    <strong>Dependencies:</strong> base, mail, sale
+  </p>
+
+  <h3>Database Models</h3>
+  <ul>
+    <li>
+      <strong>ngsign.signature.template</strong> – defines signature placement,
+      type, and default behavior.
+    </li>
+    <li>
+      <strong>ngsign.signer.wizard</strong> – transient wizard for signer and
+      template selection.
+    </li>
+    <li>
+      <strong>sale.order (extended)</strong> – adds fields for transaction UUID,
+      status, and signed document link.
+    </li>
+  </ul>
+
+  <h3>API Endpoints</h3>
+  <ul>
+    <li>POST /server/protected/transaction/pdfs</li>
+    <li>POST /server/protected/transaction/{uuid}/launch</li>
+    <li>GET /server/any/transaction/{uuid}</li>
+    <li>GET /server/any/transaction/{uuid}/pdfs/{identifier}</li>
+  </ul>
+
+  <h2>🐛 Troubleshooting</h2>
+  <ul>
+    <li>
+      <strong>PyPDF2 not installed:</strong> run <code>pip install PyPDF2</code>
+    </li>
+    <li>
+      <strong>401 Unauthorized:</strong> check and refresh your Bearer Token
+    </li>
+    <li>
+      <strong>Button not visible:</strong> ensure Sales Order is in Draft/Sent
+      state
+    </li>
+    <li>
+      <strong>Signed document missing:</strong> manually click "Check Signature
+      Status"
+    </li>
+  </ul>
+
+  <h2>📝 Changelog</h2>
+  <ul>
+    <li>
+      <strong>v18.0.1.0.0 (2025-01-15):</strong>
+      <ul>
+        <li>✨ Initial release for Odoo 18</li>
+        <li>✅ One-click signature sending</li>
+        <li>✅ Contact selection wizard</li>
+        <li>✅ Customizable templates</li>
+        <li>✅ Automatic tracking & download</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>🤝 Contributing</h2>
+  <ol>
+    <li>Fork the repository</li>
+    <li>Create a feature branch</li>
+    <li>Commit and push changes</li>
+    <li>Submit a Pull Request</li>
+  </ol>
+
+  <h2>📄 License</h2>
+  <p>
+    This module is licensed under the <strong>LGPL-3 License</strong>. See the
+    LICENSE file for details.
+  </p>
+
+  <h2>🔗 Links</h2>
+  <ul>
+    <li>
+      <a href="https://www.ng-sign.com" target="_blank">🌐 NGSIGN Website</a>
+    </li>
+    <li>
+      <a href="https://docs.ng-sign.com" target="_blank">📘 Documentation</a>
+    </li>
+    <li><em>Odoo Apps Store:</em> Coming Soon</li>
+    <li><em>Issue Tracker:</em> GitHub Issues</li>
+  </ul>
+
+  <h2>📧 Support</h2>
+  <p>
+    For technical support or questions:<br />
+    <strong>Email:</strong>
+    <a href="mailto:support@ng-sign.com">support@ng-sign.com</a><br />
+    <strong>Documentation:</strong> See
+    <a href="https://docs.ng-sign.com" target="_blank">docs.ng-sign.com</a>
+  </p>
+
+  <h2>👨‍💻 Author</h2>
+  <p>
+    <strong>NGSign</strong><br />
+    <a href="https://www.ng-sign.com" target="_blank">www.ng-sign.com</a><br />
+    Made with ❤️ by NGSIGN for the Odoo community.
+  </p>
+</section>
