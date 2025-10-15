@@ -15,35 +15,44 @@ Perfect for businesses that need to collect signatures from customers quickly an
 ## ✨ Key Features
 
 ### 🚀 **One-Click Signature Requests**
+
 Send sales orders for signature directly from Odoo with a single button click. No need to export PDFs or use external tools.
 
 ### 👥 **Smart Contact Management**
+
 When sending to companies, intelligently select which specific contact should sign the document through an intuitive wizard interface.
 
 ### ✏️ **Inline Information Editing**
+
 Edit contact email and phone numbers on the fly before sending, with the option to update the contact record permanently.
 
 ### 📝 **Flexible Signature Templates**
+
 Create and manage multiple signature templates with customizable:
+
 - **Position**: Define exact X/Y coordinates for signature placement
 - **Page Selection**: Choose specific pages or automatically place on the last page
 - **Signature Types**: Support for Simple, DigiGO, and Choose Later signature types
 - **Default Templates**: Mark templates as default for quick selection
 
 ### 🔄 **Resend Capability**
+
 Easily resend signature requests with full visibility of previous attempts, including recipient and timestamp information.
 
 ### 📊 **Complete Tracking & Status**
+
 - Real-time signature status monitoring (Draft, Sent, Signed, Expired, Cancelled)
 - Automatic status checks when opening sales orders
 - Activity tracking with automatic follow-ups
 - Chatter integration for complete audit trail
 
 ### 📥 **Automatic Document Download**
+
 Signed documents are automatically downloaded and attached to the sales order when the signature is completed.
 
 ### 🔒 **Secure & Compliant**
-Uses NGSIGN's qualified signature service  for legally binding electronic signatures that comply with international standards.
+
+Uses NGSIGN's qualified signature service for legally binding electronic signatures that comply with international standards.
 
 ## 📦 Installation
 
@@ -62,14 +71,16 @@ pip install PyPDF2
 ### Install Module
 
 1. Clone this repository into your Odoo addons directory:
+
 ```bash
 cd /path/to/odoo/addons
-git clone https://github.com/yourusername/ngsign_integration_v4.git
+git clone https://github.com/psykodali/ngsign_integration.git
 ```
 
 2. Restart your Odoo server
 
 3. Update the Apps List:
+
    - Go to **Apps** → **Update Apps List**
 
 4. Install the module:
@@ -83,6 +94,7 @@ git clone https://github.com/yourusername/ngsign_integration_v4.git
 Navigate to **Settings → General Settings → NGSIGN Integration**
 
 Configure the following:
+
 - **Base URL**: Your NGSIGN API base URL
   - Production: `https://ngsign.app`
   - Sandbox: `https://sandbox.ng-sign.com`
@@ -95,9 +107,10 @@ Click **Save** to store your configuration.
 Go to **Settings → NGSIGN → Signature Templates**
 
 Create one or more templates with:
+
 - **Template Name**: Descriptive name (e.g., "Bottom Right", "Last Page Center")
 - **Signature Type**: Choose between Simple, DigiGO, or Choose Later
-- **Page Type**: 
+- **Page Type**:
   - **Last Page**: Automatically place signature on the last page
   - **Specific Page**: Define exact page number
 - **Coordinates**: Set X and Y position for signature placement. We recommend using our developer tool to identify the appropriate signature position within your PDF template.
@@ -109,19 +122,23 @@ Create one or more templates with:
 ### Sending a Document for Signature
 
 1. **Open a Sales Order**
+
    - Go to **Sales** → **Orders** → Select or create an order
    - Ensure the order is in **Draft** or **Sent** state
 
 2. **Click "Send with NGSIGN"**
+
    - Yellow button with signature icon in the header
 
 3. **Select Signer** (Wizard opens)
+
    - Choose the contact who should sign
    - Email and phone auto-populate from contact
    - Edit contact information if needed
    - Toggle "Save changes to contact" to update the contact record in odoo
 
 4. **Choose Signature Template**
+
    - Select from your configured templates
    - Default template is pre-selected if configured
 
@@ -143,6 +160,7 @@ Create one or more templates with:
 ### Accessing Signed Documents
 
 Once signed, the document is automatically:
+
 - Downloaded from NGSIGN
 - Attached to the sales order
 - Posted in the chatter with notification
@@ -151,18 +169,22 @@ Once signed, the document is automatically:
 ## 📸 Screenshots
 
 ### Send for Signature Wizard
+
 TODO
 
 ### Signature Templates Management
+
 TODO
 
 ### Sales Order with Signature Status
+
 TODO
 
 ## 🔧 Technical Details
 
 ### Module Information
-- **Technical Name**: `ngsign_integration_v4`
+
+- **Technical Name**: `ngsign_integration`
 - **Version**: 18.0.1.0.0
 - **Category**: Digital Signature
 - **License**: LGPL-3
@@ -171,9 +193,11 @@ TODO
 ### Database Models
 
 #### `ngsign.signature.template`
+
 Signature template configuration with position, page, and signature type settings.
 
 **Key Fields:**
+
 - `name`: Template name
 - `x_axis`, `y_axis`: Signature coordinates
 - `page_type`, `page_number`: Page placement
@@ -181,18 +205,22 @@ Signature template configuration with position, page, and signature type setting
 - `is_default`: Default template flag
 
 #### `ngsign.signer.wizard`
+
 Transient model for signer selection and configuration.
 
 **Key Fields:**
+
 - `signer_id`: Selected contact
 - `signer_email`, `signer_phone`: Contact information
 - `template_id`: Selected signature template
 - `update_contact`: Update contact record flag
 
 #### Extended `sale.order`
+
 Additional fields for NGSIGN integration.
 
 **New Fields:**
+
 - `ngsign_transaction_uuid`: NGSIGN transaction identifier
 - `ngsign_signature_url`: Signature URL for tracking
 - `ngsign_signature_status`: Current signature status
@@ -201,6 +229,7 @@ Additional fields for NGSIGN integration.
 ### API Integration
 
 The module integrates with NGSIGN's REST API:
+
 - **Transaction Creation**: `POST /server/protected/transaction/pdfs`
 - **Signature Launch**: `POST /server/protected/transaction/{uuid}/launch`
 - **Status Check**: `GET /server/any/transaction/{uuid}`
@@ -209,6 +238,7 @@ The module integrates with NGSIGN's REST API:
 ### Security
 
 Access rights defined in `security/ir.model.access.csv`:
+
 - Templates accessible by all internal users
 - Wizard accessible by all internal users
 
@@ -217,6 +247,7 @@ Access rights defined in `security/ir.model.access.csv`:
 ### Common Issues
 
 **Issue**: "PyPDF2 library is not installed"
+
 ```bash
 # Solution: Install PyPDF2
 pip install PyPDF2
@@ -224,20 +255,23 @@ pip install PyPDF2
 ```
 
 **Issue**: "API Error: 401 Unauthorized"
+
 ```
 Solution: Check your Bearer Token in Settings → NGSIGN Integration
 Ensure the token is valid and has not expired
 ```
 
 **Issue**: Signature button not appearing
+
 ```
-Solution: 
+Solution:
 - Ensure sales order is in Draft or Sent state
 - Verify module is installed and up to date
 - Check browser console for JavaScript errors
 ```
 
 **Issue**: Signed document not downloading automatically
+
 ```
 Solution:
 - Manually click "Check Signature Status" button
@@ -248,6 +282,7 @@ Solution:
 ## 📝 Changelog
 
 ### Version 18.0.1.0.0 (2025-01-15)
+
 - ✨ Initial release for Odoo 18
 - ✅ One-click signature sending
 - ✅ Contact selection wizard
@@ -276,11 +311,12 @@ This module is licensed under the LGPL-3 License. See the [LICENSE](LICENSE) fil
 - **NGSIGN Website**: [https://www.ng-sign.com](https://www.ng-sign.com)
 - **NGSIGN Documentation**: [https://docs.ng-sign.com](https://docs.ng-sign.com)
 - **Odoo Apps Store**: [Coming Soon]
-- **Issue Tracker**: [GitHub Issues](https://github.com/yourusername/ngsign_integration_v4/issues)
+- **Issue Tracker**: [GitHub Issues](https://github.com/psykodali/ngsign_integration/issues)
 
 ## 📧 Support
 
 For technical support or questions:
+
 - **Email**: support@ng-sign.com
 - **Documentation**: Check our comprehensive docs
 - **Issues**: Open a GitHub issue
@@ -288,6 +324,7 @@ For technical support or questions:
 ## 👨‍💻 Author
 
 **NGSign**
+
 - Website: [https://www.ng-sign.com](https://www.ng-sign.com)
 
 ---
