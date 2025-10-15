@@ -42,11 +42,8 @@ Easily resend signature requests with full visibility of previous attempts, incl
 ### 📥 **Automatic Document Download**
 Signed documents are automatically downloaded and attached to the sales order when the signature is completed.
 
-### 🎨 **Modern UI with Brand Colors**
-Custom-styled buttons using NGSIGN brand colors (#ffcc00) for a consistent, professional look.
-
 ### 🔒 **Secure & Compliant**
-Uses NGSIGN's certified timestamp signatures for legally binding electronic signatures that comply with international standards.
+Uses NGSIGN's qualified signature service  for legally binding electronic signatures that comply with international standards.
 
 ## 📦 Installation
 
@@ -87,7 +84,7 @@ Navigate to **Settings → General Settings → NGSIGN Integration**
 
 Configure the following:
 - **Base URL**: Your NGSIGN API base URL
-  - Production: `https://app.ng-sign.com`
+  - Production: `https://ngsign.app`
   - Sandbox: `https://sandbox.ng-sign.com`
 - **Bearer Token**: Your NGSIGN API authentication token
 
@@ -103,14 +100,9 @@ Create one or more templates with:
 - **Page Type**: 
   - **Last Page**: Automatically place signature on the last page
   - **Specific Page**: Define exact page number
-- **Coordinates**: Set X and Y position for signature placement
+- **Coordinates**: Set X and Y position for signature placement. We recommend using our developer tool to identify the appropriate signature position within your PDF template.
 - **Default**: Mark one template as default for quick selection
 - **Sequence**: Order templates by priority
-
-**Example Templates:**
-- "Standard - Last Page" (X: 100, Y: 700, Last Page, Simple)
-- "Top Right" (X: 400, Y: 50, Last Page, DigiGO)
-- "Page 1 Bottom" (X: 100, Y: 700, Page 1, Simple)
 
 ## 🎯 Usage
 
@@ -127,7 +119,7 @@ Create one or more templates with:
    - Choose the contact who should sign
    - Email and phone auto-populate from contact
    - Edit contact information if needed
-   - Toggle "Save changes to contact" to update the contact record
+   - Toggle "Save changes to contact" to update the contact record in odoo
 
 4. **Choose Signature Template**
    - Select from your configured templates
