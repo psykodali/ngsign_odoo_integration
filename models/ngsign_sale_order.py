@@ -200,7 +200,7 @@ class SaleOrder(models.Model):
                         "identifier": pdf_identifier
                     }],
                     "mode": "BY_MAIL",
-                    "otp": "NONE"
+                    "otp": template.otp
                 }],
                 "message": f"Signature request for your quotation {self.name}"
             }
