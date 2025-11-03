@@ -224,7 +224,7 @@ class SaleOrder(models.Model):
 
             self.activity_schedule(
                 'mail.mail_activity_data_todo',
-                summary=_('Follow up on signature'),
+                summary=_('Sent via NGSIGN'),
                 note=_('The document "%s" has been sent to %s for signature. You can follow the process via the NGSIGN platform.') % (self.name, signer_info.get('email')),
                 user_id=self.user_id.id or self.env.uid,
             )
@@ -345,7 +345,7 @@ class SaleOrder(models.Model):
                     attachment_ids=[attachment.id]
                 )
 
-                # Mark "Follow up on signature" activity as done
+                # Mark "Sent via NGSIGN" activity as done
                 self._mark_signature_followup_done()
             
                  # Create new "Validate signed PO" activity
@@ -383,12 +383,12 @@ class SaleOrder(models.Model):
         
         return result
     def _mark_signature_followup_done(self):
-        """Mark the 'Follow up on signature' activity as done."""
+        """Mark the 'Sent via NGSIGN' activity as done."""
         self.ensure_one()
         
         # Find pending activities related to signature follow-up
         activities = self.activity_ids.filtered(
-            lambda a: a.summary == _('Follow up on signature') and a.state in ['overdue', 'today', 'planned']
+            lambda a: a.summary == _('Sent via NGSIGN') and a.state in ['overdue', 'today', 'planned']
         )
         
         if activities:

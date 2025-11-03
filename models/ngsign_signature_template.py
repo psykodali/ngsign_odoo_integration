@@ -50,8 +50,8 @@ class NgsignSignatureTemplate(models.Model):
     ], string='Signature Type', required=True, default='CERTIFIED_TIMESTAMP')
     # OTP
     otp = fields.Selection([
-        ('OTP', 'SMS / MAIL OTP'),
-        ('NONE', 'NO OTP'),
+        ('OTP', 'Require OTP'),
+        ('NONE', 'NONE'),
     ], string='OTP setting', required=True, default='OTP')
     
     company_id = fields.Many2one(
