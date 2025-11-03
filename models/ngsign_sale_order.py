@@ -164,7 +164,7 @@ class SaleOrder(models.Model):
         api_url, bearer_token = self._get_api_credentials()
         api_url = self._get_transaction_api_url(api_url)
         headers = {'Authorization': f'Bearer {bearer_token}', 'Content-Type': 'application/json'}
-        file_name = f"{self.name}.pdf"
+        file_name = f"{self.name}"
 
         try:
             # Upload PDF
@@ -344,7 +344,13 @@ class SaleOrder(models.Model):
                     body=_('✅ Signed document has been downloaded and attached.'),
                     attachment_ids=[attachment.id]
                 )
-                
+
+                # Mark "Follow up on signature" activity as done
+                self._mark_signature_followup_done()
+            
+                 # Create new "Validate signed PO" activity
+                self._create_validate_po_activity()
+
                 _logger.info(f"Successfully downloaded and attached signed document for SO: {self.name}")
                 return True
             
@@ -376,3 +382,39 @@ class SaleOrder(models.Model):
                     _logger.warning(f"Failed to check signature status for SO {record.name}: {str(e)}")
         
         return result
+    def _mark_signature_followup_done(self):
+        """Mark the 'Follow up on signature' activity as done."""
+        self.ensure_one()
+        
+        # Find pending activities related to signature follow-up
+        activities = self.activity_ids.filtered(
+            lambda a: a.summary == _('Follow up on signature') and a.state in ['overdue', 'today', 'planned']
+        )
+        
+        if activities:
+            # Mark as done with a feedback note
+            for activity in activities:
+                activity.action_feedback(feedback=_('Document has been signed and downloaded.'))
+            _logger.info(f"Marked {len(activities)} signature follow-up activity(ies) as done for SO: {self.name}")
+        else:
+            _logger.info(f"No pending signature follow-up activity found for SO: {self.name}")
+
+    def _create_validate_po_activity(self):
+        """Create a new 'Validate signed PO' activity."""
+        self.ensure_one()
+        
+        # Check if this activity already exists to avoid duplicates
+        existing_activity = self.activity_ids.filtered(
+            lambda a: a.summary == _('Validate signed PO') and a.state in ['overdue', 'today', 'planned']
+        )
+        
+        if not existing_activity:
+            self.activity_schedule(
+                'mail.mail_activity_data_todo',
+                summary=_('Validate signed PO'),
+                note=_('The document "%s" has been signed by the customer. Please review and validate this sales order to proceed.') % self.name,
+                user_id=self.user_id.id or self.env.uid,
+            )
+            _logger.info(f"Created 'Validate signed PO' activity for SO: {self.name}")
+        else:
+            _logger.info(f"'Validate signed PO' activity already exists for SO: {self.name}")
