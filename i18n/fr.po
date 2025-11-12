@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* ngsign_integration
+#	* ngsign_odoo_integration
 #
 msgid ""
 msgstr ""
@@ -16,516 +16,516 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_sale_order__ngsign_transaction_uuid
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_sale_order__ngsign_transaction_uuid
 msgid "NGSIGN Transaction UUID"
 msgstr "UUID de la transaction NGSIGN"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_sale_order__ngsign_signature_url
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_sale_order__ngsign_signature_url
 msgid "NGSIGN Signature URL"
 msgstr "URL de signature NGSIGN"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_sale_order__ngsign_signature_status
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_sale_order__ngsign_signature_status
 msgid "Signature Status"
 msgstr "État de la signature"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_sale_order__ngsign_signed_document_id
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_sale_order__ngsign_signed_document_id
 msgid "Signed Document"
 msgstr "Document signé"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,help:ngsign_integration.field_sale_order__ngsign_signed_document_id
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,help:ngsign_odoo_integration.field_sale_order__ngsign_signed_document_id
 msgid "The signed PDF document downloaded from NGSIGN"
 msgstr "Le document PDF signé téléchargé depuis NGSIGN"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 #: selection:sale.order,ngsign_signature_status:0
 msgid "Draft"
 msgstr "Brouillon"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 #: selection:sale.order,ngsign_signature_status:0
 msgid "Sent for Signature"
 msgstr "Envoyé pour signature"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 #: selection:sale.order,ngsign_signature_status:0
 msgid "Signed"
 msgstr "Signé"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 #: selection:sale.order,ngsign_signature_status:0
 msgid "Expired"
 msgstr "Expiré"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 #: selection:sale.order,ngsign_signature_status:0
 msgid "Cancelled"
 msgstr "Annulé"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_res_config_settings__ngsign_url
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_res_config_settings__ngsign_url
 msgid "NGSIGN Base URL"
 msgstr "URL de base NGSIGN"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,help:ngsign_integration.field_res_config_settings__ngsign_url
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,help:ngsign_odoo_integration.field_res_config_settings__ngsign_url
 msgid "Base URL for NGSIGN API (e.g., https://sandbox.ng-sign.com)"
 msgstr "URL de base de l'API NGSIGN (ex : https://sandbox.ng-sign.com)"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_res_config_settings__ngsign_bearer_token
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_res_config_settings__ngsign_bearer_token
 msgid "NGSIGN Bearer Token"
 msgstr "Jeton d'authentification NGSIGN"
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "NGSIGN API URL and Bearer Token must be configured in settings."
 msgstr "L'URL de l'API NGSIGN et le jeton d'authentification doivent être configurés dans les paramètres."
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Select Signer and Signature Template"
 msgstr "Sélectionner le signataire et le modèle de signature"
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Signer email is required to send the document for signature."
 msgstr "L'adresse e-mail du signataire est requise pour envoyer le document à la signature."
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Signer name is required to send the document for signature."
 msgstr "Le nom du signataire est requis pour envoyer le document à la signature."
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "A signature template must be selected to proceed."
 msgstr "Un modèle de signature doit être sélectionné pour continuer."
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "The required library PyPDF2 is not installed. Please install it by running 'pip install PyPDF2'."
 msgstr "La bibliothèque PyPDF2 n'est pas installée. Veuillez l'installer en exécutant la commande 'pip install PyPDF2'."
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "The selected signature template (ID: %s) could not be found."
 msgstr "Le modèle de signature sélectionné (ID : %s) est introuvable."
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Could not find a valid PDF report for Sales Orders. Please check your report configuration."
 msgstr "Impossible de trouver un rapport PDF valide pour les bons de commande. Veuillez vérifier la configuration de vos rapports."
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Odoo failed to generate the quotation PDF. Please check your report configuration."
 msgstr "Odoo n'a pas pu générer le PDF du devis. Veuillez vérifier la configuration de vos rapports."
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Failed to generate PDF: %s"
 msgstr "Échec de la génération du PDF : %s"
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "The template specifies an invalid page number: %s."
 msgstr "Le modèle spécifie un numéro de page invalide : %s."
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Could not determine the page for the signature: %s"
 msgstr "Impossible de déterminer la page pour la signature : %s"
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Could not determine the page for the signature based on the template settings."
 msgstr "Impossible de déterminer la page pour la signature à partir des paramètres du modèle."
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Document sent to <b>%s</b> (%s) for signature via NGSIGN."
 msgstr "Document envoyé à <b>%s</b> (%s) pour signature via NGSIGN."
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Sent via NGSIGN"
 msgstr "Envoyé via NGSIGN"
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "The document \"%s\" has been sent to %s for signature. You can follow the process via the NGSIGN platform."
 msgstr "Le document « %s » a été envoyé à %s pour signature. Vous pouvez suivre le processus via la plateforme NGSIGN."
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "API Error: %(status_code)s\nResponse:\n%(response_body)s"
 msgstr "Erreur API : %(status_code)s\nRéponse :\n%(response_body)s"
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Failed to send document to NGSIGN.\n\n%s"
 msgstr "Échec de l'envoi du document à NGSIGN.\n\n%s"
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Failed to send document to NGSIGN: %s"
 msgstr "Échec de l'envoi du document à NGSIGN : %s"
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "An unexpected error occurred: %s"
 msgstr "Une erreur inattendue s'est produite : %s"
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "No signature transaction found for this order."
 msgstr "Aucune transaction de signature trouvée pour ce bon de commande."
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "✅ Signed document has been downloaded and attached."
 msgstr "✅ Le document signé a été téléchargé et joint."
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Document has been signed and downloaded."
 msgstr "Le document a été signé et téléchargé."
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Validate signed PO"
 msgstr "Valider le bon de commande signé"
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "The document \"%s\" has been signed by the customer. Please review and validate this sales order to proceed."
 msgstr "Le document « %s » a été signé par le client. Veuillez examiner et valider ce bon de commande pour continuer."
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__name
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_ngsign_signature_template__name
 msgid "Template Name"
 msgstr "Nom du modèle"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__sequence
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_ngsign_signature_template__sequence
 msgid "Sequence"
 msgstr "Séquence"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__active
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_ngsign_signature_template__active
 msgid "Active"
 msgstr "Actif"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__is_default
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_ngsign_signature_template__is_default
 msgid "Default Template"
 msgstr "Modèle par défaut"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,help:ngsign_integration.field_ngsign_signature_template__is_default
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,help:ngsign_odoo_integration.field_ngsign_signature_template__is_default
 msgid "If checked, this template will be pre-selected when sending documents for signature"
 msgstr "Si coché, ce modèle sera présélectionné lors de l'envoi de documents pour signature"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__x_axis
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_ngsign_signature_template__x_axis
 msgid "X Coordinate"
 msgstr "Coordonnée X"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,help:ngsign_integration.field_ngsign_signature_template__x_axis
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,help:ngsign_odoo_integration.field_ngsign_signature_template__x_axis
 msgid "Horizontal position of the signature on the page"
 msgstr "Position horizontale de la signature sur la page"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__y_axis
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_ngsign_signature_template__y_axis
 msgid "Y Coordinate"
 msgstr "Coordonnée Y"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,help:ngsign_integration.field_ngsign_signature_template__y_axis
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,help:ngsign_odoo_integration.field_ngsign_signature_template__y_axis
 msgid "Vertical position of the signature on the page"
 msgstr "Position verticale de la signature sur la page"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__page_type
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_ngsign_signature_template__page_type
 msgid "Page Type"
 msgstr "Type de page"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 #: selection:ngsign.signature.template,page_type:0
 msgid "Specific Page"
 msgstr "Page spécifique"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 #: selection:ngsign.signature.template,page_type:0
 msgid "Last Page"
 msgstr "Dernière page"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__page_number
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_ngsign_signature_template__page_number
 msgid "Page Number"
 msgstr "Numéro de page"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,help:ngsign_integration.field_ngsign_signature_template__page_number
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,help:ngsign_odoo_integration.field_ngsign_signature_template__page_number
 msgid "Specific page number where the signature will be placed"
 msgstr "Numéro de page spécifique où la signature sera placée"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__signature_type
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_ngsign_signature_template__signature_type
 msgid "Signature Type"
 msgstr "Type de signature"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 #: selection:ngsign.signature.template,signature_type:0
 msgid "Simple"
 msgstr "Simple"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 #: selection:ngsign.signature.template,signature_type:0
 msgid "DigiGO"
 msgstr "DigiGO"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 #: selection:ngsign.signature.template,signature_type:0
 msgid "Choose Later"
 msgstr "Choisir plus tard"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__otp
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_ngsign_signature_template__otp
 msgid "OTP setting"
 msgstr "Paramètre OTP"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 #: selection:ngsign.signature.template,otp:0
 msgid "Require OTP"
 msgstr "Exiger un code OTP"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 #: selection:ngsign.signature.template,otp:0
 msgid "NONE"
 msgstr "AUCUN"
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_signature_template.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_signature_template.py:0
 #, python-format
 msgid "Page number must be greater than 0."
 msgstr "Le numéro de page doit être supérieur à 0."
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_signature_template.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_signature_template.py:0
 #, python-format
 msgid "Coordinates must be non-negative values."
 msgstr "Les coordonnées doivent avoir des valeurs non négatives."
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_signature_template.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_signature_template.py:0
 #, python-format
 msgid "Only one template can be marked as default. Please uncheck the default option on \"%s\" first."
 msgstr "Un seul modèle peut être défini par défaut. Veuillez d'abord décocher l'option par défaut sur « %s »."
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__sale_order_id
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_ngsign_signer_wizard__sale_order_id
 msgid "Sale Order"
 msgstr "Bon de commande"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__partner_id
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_ngsign_signer_wizard__partner_id
 msgid "Company"
 msgstr "Société"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__signer_id
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_ngsign_signer_wizard__signer_id
 msgid "Contact"
 msgstr "Contact"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__signer_email
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_ngsign_signer_wizard__signer_email
 msgid "Email"
 msgstr "E-mail"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__signer_phone
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_ngsign_signer_wizard__signer_phone
 msgid "Phone"
 msgstr "Téléphone"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__update_contact
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_ngsign_signer_wizard__update_contact
 msgid "Update contact information"
 msgstr "Mettre à jour les informations de contact"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,help:ngsign_integration.field_ngsign_signer_wizard__update_contact
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,help:ngsign_odoo_integration.field_ngsign_signer_wizard__update_contact
 msgid "If checked, the contact's email and phone will be updated with the values entered above"
 msgstr "Si coché, l'e-mail et le téléphone du contact seront mis à jour avec les valeurs saisies ci-dessus"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__template_id
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_ngsign_signer_wizard__template_id
 msgid "Signature Template"
 msgstr "Modèle de signature"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__has_previous_signature
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_ngsign_signer_wizard__has_previous_signature
 msgid "Has Previous Signature"
 msgstr "Possède une signature précédente"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__previous_signature_email
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_ngsign_signer_wizard__previous_signature_email
 msgid "Previously Sent To"
 msgstr "Envoyé précédemment à"
 
-#. module: ngsign_integration
-#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__previous_signature_date
+#. module: ngsign_odoo_integration
+#: model:ir.model.fields,field_description:ngsign_odoo_integration.field_ngsign_signer_wizard__previous_signature_date
 msgid "Previous Send Date"
 msgstr "Date d'envoi précédent"
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_signer_wizard.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_signer_wizard.py:0
 #, python-format
 msgid "Please select a contact."
 msgstr "Veuillez sélectionner un contact."
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_signer_wizard.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_signer_wizard.py:0
 #, python-format
 msgid "Email is required to send for signature."
 msgstr "L'adresse e-mail est requise pour envoyer le document à la signature."
 
-#. module: ngsign_integration
-#: code:addons/ngsign_integration/models/ngsign_signer_wizard.py:0
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_signer_wizard.py:0
 #, python-format
 msgid "Please select a signature template."
 msgstr "Veuillez sélectionner un modèle de signature."
 
-#. module: ngsign_integration
-#: model:ir.actions.act_window,name:ngsign_integration.action_ngsign_signature_template
-#: model:ir.ui.menu,name:ngsign_integration.menu_ngsign_signature_template
+#. module: ngsign_odoo_integration
+#: model:ir.actions.act_window,name:ngsign_odoo_integration.action_ngsign_signature_template
+#: model:ir.ui.menu,name:ngsign_odoo_integration.menu_ngsign_signature_template
 msgid "Signature Templates"
 msgstr "Modèles de signature"
 
-#. module: ngsign_integration
-#: model:ir.ui.menu,name:ngsign_integration.menu_ngsign_root
+#. module: ngsign_odoo_integration
+#: model:ir.ui.menu,name:ngsign_odoo_integration.menu_ngsign_root
 msgid "NGSIGN"
 msgstr "NGSIGN"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 msgid "Send with NGSIGN"
 msgstr "Envoyer avec NGSIGN"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 msgid "Resend with NGSIGN"
 msgstr "Renvoyer avec NGSIGN"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 msgid "Check Signature Status"
 msgstr "Vérifier l'état de la signature"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 msgid "Select Signer"
 msgstr "Sélectionner le signataire"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 msgid "Send for Signature"
 msgstr "Envoyer pour signature"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 msgid "Resend for Signature"
 msgstr "Renvoyer pour signature"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 msgid "Cancel"
 msgstr "Annuler"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 msgid "NGSIGN Configuration"
 msgstr "Configuration NGSIGN"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 msgid "Configure NGSIGN API for electronic signatures"
 msgstr "Configurer l'API NGSIGN pour les signatures électroniques"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 msgid "Configure Signature Templates"
 msgstr "Configurer les modèles de signature"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 msgid "Signature Position"
 msgstr "Position de la signature"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 msgid "Coordinates"
 msgstr "Coordonnées"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 msgid "X (horizontal), Y (vertical) position on the page"
 msgstr "Position X (horizontale) et Y (verticale) sur la page"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 msgid "Select Contact"
 msgstr "Sélectionner un contact"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 msgid "Contact Information"
 msgstr "Informations de contact"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 msgid "Signature Configuration"
 msgstr "Configuration de la signature"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 msgid "Save changes to contact"
 msgstr "Enregistrer les modifications du contact"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 msgid "The contact information will be updated with the values above."
 msgstr "Les informations de contact seront mises à jour avec les valeurs ci-dessus."
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 msgid "This document was already sent for signature"
 msgstr "Ce document a déjà été envoyé pour signature"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 msgid "Sending again will create a new signature request."
 msgstr "Un nouvel envoi créera une nouvelle demande de signature."
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 msgid "This will create a new signature request. The previous request will remain active. Are you sure you want to continue?"
 msgstr "Cela créera une nouvelle demande de signature. La demande précédente restera active. Êtes-vous sûr de vouloir continuer ?"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 msgid "Create your first signature template"
 msgstr "Créer votre premier modèle de signature"
 
-#. module: ngsign_integration
+#. module: ngsign_odoo_integration
 msgid "Define where signatures should be placed on your documents."
 msgstr "Définir l'emplacement des signatures sur vos documents."
