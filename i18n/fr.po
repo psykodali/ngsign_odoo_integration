@@ -531,25 +531,31 @@ msgid "Define where signatures should be placed on your documents."
 msgstr "Définir l'emplacement des signatures sur vos documents."
 
 #. module: ngsign_odoo_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_odoo_integration.res_config_settings_view_form
 msgid "NGSIGN Integration"
 msgstr "NGSIGN"
 
 #. module: ngsign_odoo_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_odoo_integration.res_config_settings_view_form
 msgid "NGSIGN Configuration"
 msgstr "Configuration NGSIGN"
 
 #. module: ngsign_odoo_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_odoo_integration.res_config_settings_view_form
 msgid "Configure NGSIGN API for electronic signatures"
 msgstr "Configurer vos accés NGSIGN API pour activer la signature électronique"
 
 #. module: ngsign_odoo_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_odoo_integration.res_config_settings_view_form
 msgid "Base URL"
 msgstr "URL de base"
 
 #. module: ngsign_odoo_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_odoo_integration.res_config_settings_view_form
 msgid "Bearer Token"
 msgstr "Token d'authentification API"
 
 #. module: ngsign_odoo_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_odoo_integration.res_config_settings_view_form
 msgid "Configure Signature Templates"
-msgstr "Configurer vos templates de signature"
+msgstr ""
