@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-15 12:00:00\n"
-"PO-Revision-Date: 2025-01-15 12:00:00\n"
+"PO-Revision-Date: 2025-11-12 16:00:00\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ar_001\n"
@@ -19,7 +19,7 @@ msgstr ""
 #. module: ngsign_integration
 #: model:ir.model.fields,field_description:ngsign_integration.field_sale_order__ngsign_transaction_uuid
 msgid "NGSIGN Transaction UUID"
-msgstr "معرف معاملة NGSIGN"
+msgstr "معرّف معاملة NGSIGN"
 
 #. module: ngsign_integration
 #: model:ir.model.fields,field_description:ngsign_integration.field_sale_order__ngsign_signature_url
@@ -34,12 +34,12 @@ msgstr "حالة التوقيع"
 #. module: ngsign_integration
 #: model:ir.model.fields,field_description:ngsign_integration.field_sale_order__ngsign_signed_document_id
 msgid "Signed Document"
-msgstr "المستند الموقع"
+msgstr "المستند الموقّع"
 
 #. module: ngsign_integration
 #: model:ir.model.fields,help:ngsign_integration.field_sale_order__ngsign_signed_document_id
 msgid "The signed PDF document downloaded from NGSIGN"
-msgstr "مستند PDF الموقع المحمل من NGSIGN"
+msgstr "مستند PDF الموقّع المحمّل من NGSIGN"
 
 #. module: ngsign_integration
 #: selection:sale.order,ngsign_signature_status:0
@@ -49,12 +49,12 @@ msgstr "مسودة"
 #. module: ngsign_integration
 #: selection:sale.order,ngsign_signature_status:0
 msgid "Sent for Signature"
-msgstr "تم الإرسال للتوقيع"
+msgstr "مُرسل للتوقيع"
 
 #. module: ngsign_integration
 #: selection:sale.order,ngsign_signature_status:0
 msgid "Signed"
-msgstr "موقع"
+msgstr "موقّع"
 
 #. module: ngsign_integration
 #: selection:sale.order,ngsign_signature_status:0
@@ -69,7 +69,7 @@ msgstr "ملغى"
 #. module: ngsign_integration
 #: model:ir.model.fields,field_description:ngsign_integration.field_res_config_settings__ngsign_url
 msgid "NGSIGN Base URL"
-msgstr "رابط NGSIGN الأساسي"
+msgstr "الرابط الأساسي لـ NGSIGN"
 
 #. module: ngsign_integration
 #: model:ir.model.fields,help:ngsign_integration.field_res_config_settings__ngsign_url
@@ -85,25 +85,25 @@ msgstr "رمز مصادقة NGSIGN"
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "NGSIGN API URL and Bearer Token must be configured in settings."
-msgstr "يجب تكوين رابط NGSIGN ورمز المصادقة في الإعدادات."
+msgstr "يجب تكوين رابط واجهة NGSIGN البرمجية ورمز المصادقة في الإعدادات."
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Select Signer and Signature Template"
-msgstr "اختر الموقع ونموذج التوقيع"
+msgstr "اختر الموقّع ونموذج التوقيع"
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Signer email is required to send the document for signature."
-msgstr "البريد الإلكتروني للموقع مطلوب لإرسال المستند للتوقيع."
+msgstr "عنوان البريد الإلكتروني للموقّع مطلوب لإرسال المستند للتوقيع."
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Signer name is required to send the document for signature."
-msgstr "اسم الموقع مطلوب لإرسال المستند للتوقيع."
+msgstr "اسم الموقّع مطلوب لإرسال المستند للتوقيع."
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
@@ -115,25 +115,25 @@ msgstr "يجب اختيار نموذج توقيع للمتابعة."
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "The required library PyPDF2 is not installed. Please install it by running 'pip install PyPDF2'."
-msgstr "المكتبة المطلوبة PyPDF2 غير مثبتة. الرجاء تثبيتها بتشغيل الأمر 'pip install PyPDF2'."
+msgstr "المكتبة المطلوبة PyPDF2 غير مثبّتة. الرجاء تثبيتها بتشغيل الأمر 'pip install PyPDF2'."
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "The selected signature template (ID: %s) could not be found."
-msgstr "لم يتم العثور على نموذج التوقيع المحدد (المعرف: %s)."
+msgstr "تعذّر العثور على نموذج التوقيع المحدد (المعرّف: %s)."
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Could not find a valid PDF report for Sales Orders. Please check your report configuration."
-msgstr "لم يتم العثور على تقرير PDF صالح لأوامر المبيعات. يرجى التحقق من إعدادات التقرير."
+msgstr "تعذّر العثور على تقرير PDF صالح لطلبات البيع. يرجى التحقق من إعدادات التقرير."
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Odoo failed to generate the quotation PDF. Please check your report configuration."
-msgstr "فشل Odoo في إنشاء ملف PDF لعرض الأسعار. يرجى التحقق من إعدادات التقرير."
+msgstr "فشل Odoo في إنشاء ملف PDF لعرض السعر. يرجى التحقق من إعدادات التقرير."
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
@@ -151,13 +151,13 @@ msgstr "يحدد النموذج رقم صفحة غير صالح: %s."
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Could not determine the page for the signature: %s"
-msgstr "لم يتمكن من تحديد الصفحة للتوقيع: %s"
+msgstr "تعذّر تحديد الصفحة للتوقيع: %s"
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Could not determine the page for the signature based on the template settings."
-msgstr "لم يتمكن من تحديد الصفحة للتوقيع بناءً على إعدادات النموذج."
+msgstr "تعذّر تحديد الصفحة للتوقيع بناءً على إعدادات النموذج."
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
@@ -175,7 +175,7 @@ msgstr "تم الإرسال عبر NGSIGN"
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "The document \"%s\" has been sent to %s for signature. You can follow the process via the NGSIGN platform."
-msgstr "تم إرسال المستند \"%s\" إلى %s للتوقيع. يمكنك متابعة العملية عبر منصة NGSIGN."
+msgstr "تم إرسال المستند « %s » إلى %s للتوقيع. يمكنك متابعة العملية عبر منصة NGSIGN."
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
@@ -211,7 +211,7 @@ msgstr "لم يتم العثور على معاملة توقيع لهذا الط�
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "✅ Signed document has been downloaded and attached."
-msgstr "✅ تم تحميل المستند الموقع وإرفاقه."
+msgstr "✅ تم تحميل المستند الموقّع وإرفاقه."
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
@@ -223,13 +223,13 @@ msgstr "تم توقيع المستند وتحميله."
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Validate signed PO"
-msgstr "التحقق من أمر الشراء الموقع"
+msgstr "المصادقة على أمر الشراء الموقّع"
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "The document \"%s\" has been signed by the customer. Please review and validate this sales order to proceed."
-msgstr "تم توقيع المستند \"%s\" من قبل العميل. يرجى مراجعة والتحقق من أمر البيع هذا للمتابعة."
+msgstr "تم توقيع المستند « %s » من قبل العميل. يرجى مراجعة والمصادقة على أمر البيع هذا للمتابعة."
 
 #. module: ngsign_integration
 #: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__name
@@ -239,7 +239,7 @@ msgstr "اسم النموذج"
 #. module: ngsign_integration
 #: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__sequence
 msgid "Sequence"
-msgstr "تسلسل"
+msgstr "التسلسل"
 
 #. module: ngsign_integration
 #: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__active
@@ -319,17 +319,17 @@ msgstr "DigiGO"
 #. module: ngsign_integration
 #: selection:ngsign.signature.template,signature_type:0
 msgid "Choose Later"
-msgstr "اختر لاحقا"
+msgstr "اختر لاحقًا"
 
 #. module: ngsign_integration
 #: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__otp
 msgid "OTP setting"
-msgstr "إعداد OTP"
+msgstr "إعداد رمز OTP"
 
 #. module: ngsign_integration
 #: selection:ngsign.signature.template,otp:0
 msgid "Require OTP"
-msgstr "يتطلب OTP"
+msgstr "يتطلب رمز OTP"
 
 #. module: ngsign_integration
 #: selection:ngsign.signature.template,otp:0
@@ -352,7 +352,7 @@ msgstr "يجب أن تكون الإحداثيات قيمًا غير سالبة."
 #: code:addons/ngsign_integration/models/ngsign_signature_template.py:0
 #, python-format
 msgid "Only one template can be marked as default. Please uncheck the default option on \"%s\" first."
-msgstr "يمكن وضع علامة افتراضي على نموذج واحد فقط. يرجى إلغاء تحديد الخيار الافتراضي على \"%s\" أولاً."
+msgstr "يمكن تعيين نموذج واحد فقط كافتراضي. يرجى إلغاء تحديد الخيار الافتراضي على « %s » أولاً."
 
 #. module: ngsign_integration
 #: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__sale_order_id
@@ -382,7 +382,7 @@ msgstr "الهاتف"
 #. module: ngsign_integration
 #: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__update_contact
 msgid "Update contact information"
-msgstr "تحديث معلومات الاتصال"
+msgstr "تحديث معلومات جهة الاتصال"
 
 #. module: ngsign_integration
 #: model:ir.model.fields,help:ngsign_integration.field_ngsign_signer_wizard__update_contact
@@ -419,7 +419,7 @@ msgstr "يرجى اختيار جهة اتصال."
 #: code:addons/ngsign_integration/models/ngsign_signer_wizard.py:0
 #, python-format
 msgid "Email is required to send for signature."
-msgstr "البريد الإلكتروني مطلوب للإرسال للتوقيع."
+msgstr "عنوان البريد الإلكتروني مطلوب للإرسال للتوقيع."
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_signer_wizard.py:0
@@ -444,15 +444,15 @@ msgstr "إرسال عبر NGSIGN"
 
 #. module: ngsign_integration
 msgid "Resend with NGSIGN"
-msgstr "إعادة إرسال عبر NGSIGN"
+msgstr "إعادة الإرسال عبر NGSIGN"
 
 #. module: ngsign_integration
 msgid "Check Signature Status"
-msgstr "التحقق من حالة التوقيع"
+msgstr "فحص حالة التوقيع"
 
 #. module: ngsign_integration
 msgid "Select Signer"
-msgstr "اختيار الموقع"
+msgstr "اختيار الموقّع"
 
 #. module: ngsign_integration
 msgid "Send for Signature"
@@ -460,7 +460,7 @@ msgstr "إرسال للتوقيع"
 
 #. module: ngsign_integration
 msgid "Resend for Signature"
-msgstr "إعادة إرسال للتوقيع"
+msgstr "إعادة الإرسال للتوقيع"
 
 #. module: ngsign_integration
 msgid "Cancel"
@@ -488,7 +488,7 @@ msgstr "الإحداثيات"
 
 #. module: ngsign_integration
 msgid "X (horizontal), Y (vertical) position on the page"
-msgstr "موضع X (أفقي)، Y (عمودي) على الصفحة"
+msgstr "الموضع X (أفقي) وY (عمودي) على الصفحة"
 
 #. module: ngsign_integration
 msgid "Select Contact"
@@ -496,19 +496,19 @@ msgstr "اختيار جهة الاتصال"
 
 #. module: ngsign_integration
 msgid "Contact Information"
-msgstr "معلومات الاتصال"
+msgstr "معلومات جهة الاتصال"
 
 #. module: ngsign_integration
 msgid "Signature Configuration"
-msgstr "تكوين التوقيع"
+msgstr "إعدادات التوقيع"
 
 #. module: ngsign_integration
 msgid "Save changes to contact"
-msgstr "حفظ التغييرات في جهة الاتصال"
+msgstr "حفظ التعديلات على جهة الاتصال"
 
 #. module: ngsign_integration
 msgid "The contact information will be updated with the values above."
-msgstr "سيتم تحديث معلومات الاتصال بالقيم أعلاه."
+msgstr "سيتم تحديث معلومات جهة الاتصال بالقيم أعلاه."
 
 #. module: ngsign_integration
 msgid "This document was already sent for signature"
@@ -516,16 +516,16 @@ msgstr "تم إرسال هذا المستند بالفعل للتوقيع"
 
 #. module: ngsign_integration
 msgid "Sending again will create a new signature request."
-msgstr "الإرسال مرة أخرى سينشئ طلب توقيع جديد."
+msgstr "الإرسال مجددًا سينشئ طلب توقيع جديد."
 
 #. module: ngsign_integration
 msgid "This will create a new signature request. The previous request will remain active. Are you sure you want to continue?"
-msgstr "سيؤدي هذا إلى إنشاء طلب توقيع جديد. سيبقى الطلب السابق نشطًا. هل أنت متأكد أنك تريد المتابعة؟"
+msgstr "سيؤدي هذا إلى إنشاء طلب توقيع جديد. سيبقى الطلب السابق نشطًا. هل أنت متأكد من رغبتك في المتابعة؟"
 
 #. module: ngsign_integration
 msgid "Create your first signature template"
-msgstr "أنشئ نموذج التوقيع الأول"
+msgstr "قم بإنشاء أول نموذج توقيع"
 
 #. module: ngsign_integration
 msgid "Define where signatures should be placed on your documents."
-msgstr "حدد المكان الذي يجب وضع التوقيعات فيه على مستنداتك."
+msgstr "حدد مواضع التوقيعات على مستنداتك."

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-15 12:00:00\n"
-"PO-Revision-Date: 2025-01-15 12:00:00\n"
+"PO-Revision-Date: 2025-11-12 16:00:00\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -19,7 +19,7 @@ msgstr ""
 #. module: ngsign_integration
 #: model:ir.model.fields,field_description:ngsign_integration.field_sale_order__ngsign_transaction_uuid
 msgid "NGSIGN Transaction UUID"
-msgstr "UUID de transaction NGSIGN"
+msgstr "UUID de la transaction NGSIGN"
 
 #. module: ngsign_integration
 #: model:ir.model.fields,field_description:ngsign_integration.field_sale_order__ngsign_signature_url
@@ -29,7 +29,7 @@ msgstr "URL de signature NGSIGN"
 #. module: ngsign_integration
 #: model:ir.model.fields,field_description:ngsign_integration.field_sale_order__ngsign_signature_status
 msgid "Signature Status"
-msgstr "Statut de signature"
+msgstr "État de la signature"
 
 #. module: ngsign_integration
 #: model:ir.model.fields,field_description:ngsign_integration.field_sale_order__ngsign_signed_document_id
@@ -74,7 +74,7 @@ msgstr "URL de base NGSIGN"
 #. module: ngsign_integration
 #: model:ir.model.fields,help:ngsign_integration.field_res_config_settings__ngsign_url
 msgid "Base URL for NGSIGN API (e.g., https://sandbox.ng-sign.com)"
-msgstr "URL de base pour l'API NGSIGN (ex: https://sandbox.ng-sign.com)"
+msgstr "URL de base de l'API NGSIGN (ex : https://sandbox.ng-sign.com)"
 
 #. module: ngsign_integration
 #: model:ir.model.fields,field_description:ngsign_integration.field_res_config_settings__ngsign_bearer_token
@@ -85,7 +85,7 @@ msgstr "Jeton d'authentification NGSIGN"
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "NGSIGN API URL and Bearer Token must be configured in settings."
-msgstr "L'URL API NGSIGN et le jeton d'authentification doivent être configurés dans les paramètres."
+msgstr "L'URL de l'API NGSIGN et le jeton d'authentification doivent être configurés dans les paramètres."
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
@@ -97,7 +97,7 @@ msgstr "Sélectionner le signataire et le modèle de signature"
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Signer email is required to send the document for signature."
-msgstr "L'email du signataire est requis pour envoyer le document à la signature."
+msgstr "L'adresse e-mail du signataire est requise pour envoyer le document à la signature."
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
@@ -115,49 +115,49 @@ msgstr "Un modèle de signature doit être sélectionné pour continuer."
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "The required library PyPDF2 is not installed. Please install it by running 'pip install PyPDF2'."
-msgstr "La bibliothèque PyPDF2 requise n'est pas installée. Veuillez l'installer en exécutant 'pip install PyPDF2'."
+msgstr "La bibliothèque PyPDF2 n'est pas installée. Veuillez l'installer en exécutant la commande 'pip install PyPDF2'."
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "The selected signature template (ID: %s) could not be found."
-msgstr "Le modèle de signature sélectionné (ID: %s) n'a pas pu être trouvé."
+msgstr "Le modèle de signature sélectionné (ID : %s) est introuvable."
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Could not find a valid PDF report for Sales Orders. Please check your report configuration."
-msgstr "Impossible de trouver un rapport PDF valide pour les commandes de vente. Veuillez vérifier votre configuration de rapport."
+msgstr "Impossible de trouver un rapport PDF valide pour les bons de commande. Veuillez vérifier la configuration de vos rapports."
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Odoo failed to generate the quotation PDF. Please check your report configuration."
-msgstr "Odoo n'a pas pu générer le PDF du devis. Veuillez vérifier votre configuration de rapport."
+msgstr "Odoo n'a pas pu générer le PDF du devis. Veuillez vérifier la configuration de vos rapports."
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Failed to generate PDF: %s"
-msgstr "Échec de la génération du PDF: %s"
+msgstr "Échec de la génération du PDF : %s"
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "The template specifies an invalid page number: %s."
-msgstr "Le modèle spécifie un numéro de page invalide: %s."
+msgstr "Le modèle spécifie un numéro de page invalide : %s."
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Could not determine the page for the signature: %s"
-msgstr "Impossible de déterminer la page pour la signature: %s"
+msgstr "Impossible de déterminer la page pour la signature : %s"
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Could not determine the page for the signature based on the template settings."
-msgstr "Impossible de déterminer la page pour la signature selon les paramètres du modèle."
+msgstr "Impossible de déterminer la page pour la signature à partir des paramètres du modèle."
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
@@ -175,13 +175,13 @@ msgstr "Envoyé via NGSIGN"
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "The document \"%s\" has been sent to %s for signature. You can follow the process via the NGSIGN platform."
-msgstr "Le document \"%s\" a été envoyé à %s pour signature. Vous pouvez suivre le processus via la plateforme NGSIGN."
+msgstr "Le document « %s » a été envoyé à %s pour signature. Vous pouvez suivre le processus via la plateforme NGSIGN."
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "API Error: %(status_code)s\nResponse:\n%(response_body)s"
-msgstr "Erreur API: %(status_code)s\nRéponse:\n%(response_body)s"
+msgstr "Erreur API : %(status_code)s\nRéponse :\n%(response_body)s"
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
@@ -193,19 +193,19 @@ msgstr "Échec de l'envoi du document à NGSIGN.\n\n%s"
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "Failed to send document to NGSIGN: %s"
-msgstr "Échec de l'envoi du document à NGSIGN: %s"
+msgstr "Échec de l'envoi du document à NGSIGN : %s"
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "An unexpected error occurred: %s"
-msgstr "Une erreur inattendue s'est produite: %s"
+msgstr "Une erreur inattendue s'est produite : %s"
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "No signature transaction found for this order."
-msgstr "Aucune transaction de signature trouvée pour cette commande."
+msgstr "Aucune transaction de signature trouvée pour ce bon de commande."
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
@@ -229,7 +229,7 @@ msgstr "Valider le bon de commande signé"
 #: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
 #, python-format
 msgid "The document \"%s\" has been signed by the customer. Please review and validate this sales order to proceed."
-msgstr "Le document \"%s\" a été signé par le client. Veuillez examiner et valider ce bon de commande pour continuer."
+msgstr "Le document « %s » a été signé par le client. Veuillez examiner et valider ce bon de commande pour continuer."
 
 #. module: ngsign_integration
 #: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__name
@@ -329,7 +329,7 @@ msgstr "Paramètre OTP"
 #. module: ngsign_integration
 #: selection:ngsign.signature.template,otp:0
 msgid "Require OTP"
-msgstr "Exiger OTP"
+msgstr "Exiger un code OTP"
 
 #. module: ngsign_integration
 #: selection:ngsign.signature.template,otp:0
@@ -346,13 +346,13 @@ msgstr "Le numéro de page doit être supérieur à 0."
 #: code:addons/ngsign_integration/models/ngsign_signature_template.py:0
 #, python-format
 msgid "Coordinates must be non-negative values."
-msgstr "Les coordonnées doivent être des valeurs non négatives."
+msgstr "Les coordonnées doivent avoir des valeurs non négatives."
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_signature_template.py:0
 #, python-format
 msgid "Only one template can be marked as default. Please uncheck the default option on \"%s\" first."
-msgstr "Un seul modèle peut être marqué par défaut. Veuillez d'abord décocher l'option par défaut sur \"%s\"."
+msgstr "Un seul modèle peut être défini par défaut. Veuillez d'abord décocher l'option par défaut sur « %s »."
 
 #. module: ngsign_integration
 #: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__sale_order_id
@@ -372,7 +372,7 @@ msgstr "Contact"
 #. module: ngsign_integration
 #: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__signer_email
 msgid "Email"
-msgstr "Email"
+msgstr "E-mail"
 
 #. module: ngsign_integration
 #: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__signer_phone
@@ -382,12 +382,12 @@ msgstr "Téléphone"
 #. module: ngsign_integration
 #: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__update_contact
 msgid "Update contact information"
-msgstr "Mettre à jour les informations du contact"
+msgstr "Mettre à jour les informations de contact"
 
 #. module: ngsign_integration
 #: model:ir.model.fields,help:ngsign_integration.field_ngsign_signer_wizard__update_contact
 msgid "If checked, the contact's email and phone will be updated with the values entered above"
-msgstr "Si coché, l'email et le téléphone du contact seront mis à jour avec les valeurs saisies ci-dessus"
+msgstr "Si coché, l'e-mail et le téléphone du contact seront mis à jour avec les valeurs saisies ci-dessus"
 
 #. module: ngsign_integration
 #: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__template_id
@@ -397,7 +397,7 @@ msgstr "Modèle de signature"
 #. module: ngsign_integration
 #: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__has_previous_signature
 msgid "Has Previous Signature"
-msgstr "A une signature précédente"
+msgstr "Possède une signature précédente"
 
 #. module: ngsign_integration
 #: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__previous_signature_email
@@ -419,7 +419,7 @@ msgstr "Veuillez sélectionner un contact."
 #: code:addons/ngsign_integration/models/ngsign_signer_wizard.py:0
 #, python-format
 msgid "Email is required to send for signature."
-msgstr "L'email est requis pour envoyer à la signature."
+msgstr "L'adresse e-mail est requise pour envoyer le document à la signature."
 
 #. module: ngsign_integration
 #: code:addons/ngsign_integration/models/ngsign_signer_wizard.py:0
@@ -448,7 +448,7 @@ msgstr "Renvoyer avec NGSIGN"
 
 #. module: ngsign_integration
 msgid "Check Signature Status"
-msgstr "Vérifier le statut de signature"
+msgstr "Vérifier l'état de la signature"
 
 #. module: ngsign_integration
 msgid "Select Signer"
@@ -488,19 +488,19 @@ msgstr "Coordonnées"
 
 #. module: ngsign_integration
 msgid "X (horizontal), Y (vertical) position on the page"
-msgstr "Position X (horizontale), Y (verticale) sur la page"
+msgstr "Position X (horizontale) et Y (verticale) sur la page"
 
 #. module: ngsign_integration
 msgid "Select Contact"
-msgstr "Sélectionner le contact"
+msgstr "Sélectionner un contact"
 
 #. module: ngsign_integration
 msgid "Contact Information"
-msgstr "Informations du contact"
+msgstr "Informations de contact"
 
 #. module: ngsign_integration
 msgid "Signature Configuration"
-msgstr "Configuration de signature"
+msgstr "Configuration de la signature"
 
 #. module: ngsign_integration
 msgid "Save changes to contact"
@@ -508,7 +508,7 @@ msgstr "Enregistrer les modifications du contact"
 
 #. module: ngsign_integration
 msgid "The contact information will be updated with the values above."
-msgstr "Les informations du contact seront mises à jour avec les valeurs ci-dessus."
+msgstr "Les informations de contact seront mises à jour avec les valeurs ci-dessus."
 
 #. module: ngsign_integration
 msgid "This document was already sent for signature"
@@ -516,16 +516,16 @@ msgstr "Ce document a déjà été envoyé pour signature"
 
 #. module: ngsign_integration
 msgid "Sending again will create a new signature request."
-msgstr "Renvoyer créera une nouvelle demande de signature."
+msgstr "Un nouvel envoi créera une nouvelle demande de signature."
 
 #. module: ngsign_integration
 msgid "This will create a new signature request. The previous request will remain active. Are you sure you want to continue?"
-msgstr "Cela créera une nouvelle demande de signature. La demande précédente restera active. Êtes-vous sûr de vouloir continuer?"
+msgstr "Cela créera une nouvelle demande de signature. La demande précédente restera active. Êtes-vous sûr de vouloir continuer ?"
 
 #. module: ngsign_integration
 msgid "Create your first signature template"
-msgstr "Créez votre premier modèle de signature"
+msgstr "Créer votre premier modèle de signature"
 
 #. module: ngsign_integration
 msgid "Define where signatures should be placed on your documents."
-msgstr "Définissez où les signatures doivent être placées sur vos documents."
+msgstr "Définir l'emplacement des signatures sur vos documents."
