@@ -1,0 +1,627 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* ngsign_integration
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-15 12:00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. module: ngsign_integration
+#: model:ir.model,name:ngsign_integration.model_sale_order
+msgid "Sale Order"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model,name:ngsign_integration.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model,name:ngsign_integration.model_ngsign_signature_template
+msgid "NGSIGN Signature Template"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model,name:ngsign_integration.model_ngsign_signer_wizard
+msgid "NGSIGN Signer Selection Wizard"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_sale_order__ngsign_transaction_uuid
+msgid "NGSIGN Transaction UUID"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_sale_order__ngsign_signature_url
+msgid "NGSIGN Signature URL"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_sale_order__ngsign_signature_status
+msgid "Signature Status"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_sale_order__ngsign_signed_document_id
+msgid "Signed Document"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,help:ngsign_integration.field_sale_order__ngsign_signed_document_id
+msgid "The signed PDF document downloaded from NGSIGN"
+msgstr ""
+
+#. module: ngsign_integration
+#: selection:sale.order,ngsign_signature_status:0
+msgid "Draft"
+msgstr ""
+
+#. module: ngsign_integration
+#: selection:sale.order,ngsign_signature_status:0
+msgid "Sent for Signature"
+msgstr ""
+
+#. module: ngsign_integration
+#: selection:sale.order,ngsign_signature_status:0
+msgid "Signed"
+msgstr ""
+
+#. module: ngsign_integration
+#: selection:sale.order,ngsign_signature_status:0
+msgid "Expired"
+msgstr ""
+
+#. module: ngsign_integration
+#: selection:sale.order,ngsign_signature_status:0
+msgid "Cancelled"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_res_config_settings__ngsign_url
+msgid "NGSIGN Base URL"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,help:ngsign_integration.field_res_config_settings__ngsign_url
+msgid "Base URL for NGSIGN API (e.g., https://sandbox.ng-sign.com)"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_res_config_settings__ngsign_bearer_token
+msgid "NGSIGN Bearer Token"
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "NGSIGN API URL and Bearer Token must be configured in settings."
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "Select Signer and Signature Template"
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "Signer email is required to send the document for signature."
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "Signer name is required to send the document for signature."
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "A signature template must be selected to proceed."
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "The required library PyPDF2 is not installed. Please install it by running 'pip install PyPDF2'."
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "The selected signature template (ID: %s) could not be found."
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "Could not find a valid PDF report for Sales Orders. Please check your report configuration."
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "Odoo failed to generate the quotation PDF. Please check your report configuration."
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "Failed to generate PDF: %s"
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "The template specifies an invalid page number: %s."
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "Could not determine the page for the signature: %s"
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "Could not determine the page for the signature based on the template settings."
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "Document sent to <b>%s</b> (%s) for signature via NGSIGN."
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "Sent via NGSIGN"
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "The document \"%s\" has been sent to %s for signature. You can follow the process via the NGSIGN platform."
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "API Error: %(status_code)s\\nResponse:\\n%(response_body)s"
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "Failed to send document to NGSIGN.\\n\\n%s"
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "Failed to send document to NGSIGN: %s"
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "An unexpected error occurred: %s"
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "No signature transaction found for this order."
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "✅ Signed document has been downloaded and attached."
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "Document has been signed and downloaded."
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "Validate signed PO"
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "The document \"%s\" has been signed by the customer. Please review and validate this sales order to proceed."
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__name
+msgid "Template Name"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__active
+msgid "Active"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__is_default
+msgid "Default Template"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,help:ngsign_integration.field_ngsign_signature_template__is_default
+msgid "If checked, this template will be pre-selected when sending documents for signature"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__x_axis
+msgid "X Coordinate"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,help:ngsign_integration.field_ngsign_signature_template__x_axis
+msgid "Horizontal position of the signature on the page"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__y_axis
+msgid "Y Coordinate"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,help:ngsign_integration.field_ngsign_signature_template__y_axis
+msgid "Vertical position of the signature on the page"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__page_type
+msgid "Page Type"
+msgstr ""
+
+#. module: ngsign_integration
+#: selection:ngsign.signature.template,page_type:0
+msgid "Specific Page"
+msgstr ""
+
+#. module: ngsign_integration
+#: selection:ngsign.signature.template,page_type:0
+msgid "Last Page"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__page_number
+msgid "Page Number"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,help:ngsign_integration.field_ngsign_signature_template__page_number
+msgid "Specific page number where the signature will be placed"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__signature_type
+msgid "Signature Type"
+msgstr ""
+
+#. module: ngsign_integration
+#: selection:ngsign.signature.template,signature_type:0
+msgid "Simple"
+msgstr ""
+
+#. module: ngsign_integration
+#: selection:ngsign.signature.template,signature_type:0
+msgid "DigiGO"
+msgstr ""
+
+#. module: ngsign_integration
+#: selection:ngsign.signature.template,signature_type:0
+msgid "Choose Later"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__otp
+msgid "OTP setting"
+msgstr ""
+
+#. module: ngsign_integration
+#: selection:ngsign.signature.template,otp:0
+msgid "Require OTP"
+msgstr ""
+
+#. module: ngsign_integration
+#: selection:ngsign.signature.template,otp:0
+msgid "NONE"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signature_template__company_id
+msgid "Company"
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_signature_template.py:0
+#, python-format
+msgid "Page number must be greater than 0."
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_signature_template.py:0
+#, python-format
+msgid "Coordinates must be non-negative values."
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_signature_template.py:0
+#, python-format
+msgid "Only one template can be marked as default. Please uncheck the default option on \"%s\" first."
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__sale_order_id
+msgid "Sale Order"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__partner_id
+msgid "Company"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__signer_id
+msgid "Contact"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__signer_email
+msgid "Email"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__signer_phone
+msgid "Phone"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__update_contact
+msgid "Update contact information"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,help:ngsign_integration.field_ngsign_signer_wizard__update_contact
+msgid "If checked, the contact's email and phone will be updated with the values entered above"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__template_id
+msgid "Signature Template"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__has_previous_signature
+msgid "Has Previous Signature"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__previous_signature_email
+msgid "Previously Sent To"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.model.fields,field_description:ngsign_integration.field_ngsign_signer_wizard__previous_signature_date
+msgid "Previous Send Date"
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_signer_wizard.py:0
+#, python-format
+msgid "Please select a contact."
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_signer_wizard.py:0
+#, python-format
+msgid "Email is required to send for signature."
+msgstr ""
+
+#. module: ngsign_integration
+#: code:addons/ngsign_integration/models/ngsign_signer_wizard.py:0
+#, python-format
+msgid "Please select a signature template."
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.actions.act_window,name:ngsign_integration.action_ngsign_signature_template
+#: model:ir.ui.menu,name:ngsign_integration.menu_ngsign_signature_template
+msgid "Signature Templates"
+msgstr ""
+
+#. module: ngsign_integration
+#: model:ir.ui.menu,name:ngsign_integration.menu_ngsign_root
+msgid "NGSIGN"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_order_form_inherit_ngsign
+msgid "Send with NGSIGN"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_order_form_inherit_ngsign
+msgid "Resend with NGSIGN"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_order_form_inherit_ngsign
+msgid "Check Signature Status"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_ngsign_signer_wizard_form
+msgid "Select Signer"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_ngsign_signer_wizard_form
+msgid "Send for Signature"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_ngsign_signer_wizard_form
+msgid "Resend for Signature"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_ngsign_signer_wizard_form
+msgid "Cancel"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.res_config_settings_view_form
+msgid "NGSIGN Integration"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.res_config_settings_view_form
+msgid "NGSIGN Configuration"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.res_config_settings_view_form
+msgid "Configure NGSIGN API for electronic signatures"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.res_config_settings_view_form
+msgid "Base URL"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.res_config_settings_view_form
+msgid "Bearer Token"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.res_config_settings_view_form
+msgid "Configure Signature Templates"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_ngsign_signature_template_tree
+msgid "Signature Templates"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_ngsign_signature_template_form
+msgid "Archived"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_ngsign_signature_template_form
+msgid "Default"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_ngsign_signature_template_form
+msgid "Signature Position"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_ngsign_signature_template_form
+msgid "Coordinates"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_ngsign_signature_template_form
+msgid "X (horizontal), Y (vertical) position on the page"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_ngsign_signer_wizard_form
+msgid "Select Contact"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_ngsign_signer_wizard_form
+msgid "Choose a contact from the company..."
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_ngsign_signer_wizard_form
+msgid "Contact Information"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_ngsign_signer_wizard_form
+msgid "Signature Configuration"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_ngsign_signer_wizard_form
+msgid "Select signature placement template..."
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_ngsign_signer_wizard_form
+msgid "Save changes to contact"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_ngsign_signer_wizard_form
+msgid "The contact information will be updated with the values above."
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_ngsign_signer_wizard_form
+msgid "This document was already sent for signature"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_ngsign_signer_wizard_form
+msgid "Previously sent to:"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_ngsign_signer_wizard_form
+msgid "On:"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_ngsign_signer_wizard_form
+msgid "Sending again will create a new signature request."
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.ui.view,arch_db:ngsign_integration.view_ngsign_signer_wizard_form
+msgid "This will create a new signature request. The previous request will remain active. Are you sure you want to continue?"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.actions.act_window,help:ngsign_integration.action_ngsign_signature_template
+msgid "Create your first signature template"
+msgstr ""
+
+#. module: ngsign_integration
+#: model_terms:ir.actions.act_window,help:ngsign_integration.action_ngsign_signature_template
+msgid "Define where signatures should be placed on your documents."
+msgstr ""
