@@ -558,4 +558,10 @@ msgstr "Token d'authentification API"
 #. module: ngsign_odoo_integration
 #: model_terms:ir.ui.view,arch_db:ngsign_odoo_integration.res_config_settings_view_form
 msgid "Configure Signature Templates"
-msgstr ""
+msgstr "Configurer vos templates de signature"
+
+#. module: ngsign_odoo_integration
+#: code:addons/ngsign_odoo_integration/models/ngsign_sale_order.py:0
+#, python-format
+msgid "Validate signed PO"
+msgstr "BC signé à valider"
